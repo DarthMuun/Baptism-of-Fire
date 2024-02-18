@@ -1,0 +1,137 @@
+package main;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+
+import javax.swing.JPanel;
+
+public class GamePanel extends JPanel implements Runnable{
+	
+	//Screen Settings
+
+	//Define el espacio de cada personaje y NPC
+
+	final int originalTileSize = 32; // Cambiado a 32x32 tile
+
+	//Para acomodar el espacio a una resolucion actual vamos a usar una integral variable para escalar el modelo
+
+	final int scale = 2; // Cambiado a escala 2
+
+	public final int tileSize = originalTileSize * scale; // Cambiado a 64x64 tile
+
+	//Configuracion Pantalla de Juego
+
+	final int maxScreenCol = 25;
+	final int maxScreenRow = 18;
+	final int screenWidth = tileSize * maxScreenCol; //1920px
+	final int screenHeight = tileSize * maxScreenRow; //1080px
+	
+	//FPS Set
+	
+	int FPS = 60;
+	
+	
+	//Para el funcionamiento del juego el tiempo debe correr en la vida real
+	
+	//Esta funcion ayuda que empiece o pare si el programa sigue corriendo
+	KeyHandler keyH = new KeyHandler();
+	Thread gameThread;
+	
+	
+	//Player Default Position
+	
+	int playerX = 100;
+	int playerY = 100;
+	int playerSpeed = 6;
+	
+	public GamePanel () {
+		
+		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
+		this.setBackground(Color.black);
+		this.setDoubleBuffered(true);
+		this.addKeyListener(keyH);
+		this.setFocusable(true);
+		
+		//FOCUSABLE hace que el GamePanel pueda Concentrarce en que Letra esta siendo ejecutada
+	}
+	
+	public void startGameThread() {
+		
+		gameThread = new Thread();
+		gameThread.start();
+		//Llama automaticamente al metodo RUN
+		
+	}
+
+	@Override
+	public void run() {
+		
+		double drawInterval = 1000000000/FPS; //0.1666 segundos
+		
+		double nextDrawTime = System.nanoTime() + drawInterval;
+		
+	// Cuando un objeto se implemente Runnable se usa un Thread *Threads llama a Run*
+		
+		while(gameThread != null) {
+			
+			//long currentTime = System.nanoTime();
+			
+			//System.out.println("The Game is Running"+currentTime);
+			
+			// 1 UPDATE: ACTUALIZA LA POSICION DEL PERSONAJE
+			
+			update();
+			
+			// 2 DRAW: DIBUJA EN LA PANTALLA LA INFORMACION ACTUALIZADA
+			
+			repaint();
+			
+			try {
+				
+				double remainingTime = nextDrawTime - System.nanoTime();
+				remainingTime = remainingTime/1000000;
+				
+				if(remainingTime < 0) {
+					remainingTime = 0;
+				}
+				
+				Thread.sleep((long) remainingTime);
+				
+				nextDrawTime += drawInterval;
+				
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+	}
+	
+	public void update() {
+		
+
+		
+	}
+	
+	public void paintComponent(Graphics g){
+		
+		//painComponet es un metodo que ayuda a con el tema del dibujo de mapa
+		
+		super.paintComponent(g);
+		
+		//Graphics2D class extiende y brinda un control mas sofisticado en la geometrica, coordinadas, manejo de color etc
+		
+		Graphics2D g2 = (Graphics2D)g;
+		
+
+		
+		//*dispose() ayuda y dispone de los graficos que se estan usando en el sistema
+		
+		g2.dispose();
+		
+	}
+	
+}

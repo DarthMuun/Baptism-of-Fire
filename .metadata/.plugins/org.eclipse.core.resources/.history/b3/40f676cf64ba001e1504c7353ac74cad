@@ -1,0 +1,126 @@
+package main;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+
+import javax.swing.JPanel;
+
+public class GamePanel extends JPanel implements Runnable{
+	
+	//Screen Settings
+	
+	final int originalTileSize = 16; //16px x 16px
+	final int scale = 3;
+	final int tileSize = originalTileSize * scale; //48px x 48px	
+	final int maxScreenCol = 16;
+	final int maxScreenRow = 12;
+	final int screenWidth = tileSize* maxScreenCol; // 768px
+	final int screenHeight = tileSize* maxScreenRow; // 576px
+	
+    int FPS = 60;
+	KeyHandler keyH= new KeyHandler();	
+	Thread gameThread;
+	
+	int playerX = 100;
+	int playerY = 100;
+	int playerSpeed = 6;
+	
+	public GamePanel () {
+		
+		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
+		this.setBackground(Color.black);
+		this.setDoubleBuffered(true);
+		this.addKeyListener(keyH);
+		this.setFocusable(true);
+		
+		//FOCUSABLE hace que el GamePanel pueda Concentrarce en que Letra esta siendo ejecutada
+	}
+	
+	public void startGameThread() {
+		
+		gameThread = new Thread();
+		gameThread.start();
+		//Llama automaticamente al metodo RUN
+		
+	}
+
+	@Override
+	public void run() {
+		
+		double drawInterval = 1000000000/FPS; //0.1666 segundos
+		
+		double nextDrawTime = System.nanoTime() + drawInterval;
+		
+	// Cuando un objeto se implemente Runnable se usa un Thread *Threads llama a Run*
+		
+		while(gameThread != null) {
+			
+			//long currentTime = System.nanoTime();
+			
+			//System.out.println("The Game is Running"+currentTime);
+			
+			// 1 UPDATE: ACTUALIZA LA POSICION DEL PERSONAJE
+			
+			update();
+			
+			// 2 DRAW: DIBUJA EN LA PANTALLA LA INFORMACION ACTUALIZADA
+			
+			repaint();
+			
+			try {
+				
+				double remainingTime = nextDrawTime - System.nanoTime();
+				remainingTime = remainingTime/1000000;
+				
+				if(remainingTime < 0) {
+					remainingTime = 0;
+				}
+				
+				Thread.sleep((long) remainingTime);
+				
+				nextDrawTime += drawInterval;
+				
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+	}
+	public void update() {
+		
+			if(keyH.upPressed == true) {
+				playerY -= playerSpeed;
+			}
+			else if(keyH.downPressed == true) {
+				playerY += playerSpeed;
+			}
+			else if (keyH.leftPressed == true) {
+			    playerX -= playerSpeed;
+			}
+			else if (keyH.rightPressed == true) {
+			    playerX += playerSpeed;
+			}
+		
+	}
+	
+	@Override
+	public void paintComponent(Graphics g) {
+		
+		super.paintComponent(g);
+		
+		Graphics2D g2 = (Graphics2D)g;
+		
+		g2.setColor(Color.white);
+		
+		g2.fillRect(playerX, playerY, tileSize, tileSize);
+		
+		g2.dispose();
+		
+		
+	}
+
+}

@@ -1,0 +1,30 @@
+package object;
+
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
+import entity.Player;
+import main.GamePanel;
+
+//En la clase OBJ_Door
+public class OBJ_Door extends SuperObject {
+ 
+ // Otros miembros de la clase
+
+ public void useKey(GamePanel gp, Player player) {
+     // Verificar que el jugador tenga una llave antes de abrir la puerta
+     if (player.hasKey > 0) {
+         System.out.println("Door opened with a key!");
+         // Disminuir el contador de llaves del jugador
+         player.hasKey--;
+         // Desactivar la colisión de la puerta
+         collision = false;
+         // Realizar cualquier otra acción relacionada con abrir la puerta
+     } else {
+         System.out.println("No key to open the door.");
+     }
+ }
+
+ // Otros métodos y miembros de la clase
+}
