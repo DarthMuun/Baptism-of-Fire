@@ -22,7 +22,6 @@ public class TileManager {
 		this.gp = gp;
 		
 		tile = new Tile[10];
-		
 		mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
 		
 		getTileImage();
@@ -32,9 +31,8 @@ public class TileManager {
 	public void getTileImage() {
 		
 			
-			setup(0, "floor2", true);
-			setup(1, "floor1", false);
-			
+			setup(0, "wall", true);
+			setup(1, "floor", false);
 	}
 			
 	

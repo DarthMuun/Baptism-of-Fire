@@ -6,8 +6,12 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="C:\Users\reald\eclipse-workspace\backup"/>
+			<item value="C:\Users\reald\eclipse-workspace\biohazard"/>
 			<item value="C:\Users\reald\Documents\Proyect Andromeda"/>
 			<item value="C:\Users\reald\Documents\MyFirstAndGenericGameEver"/>
 		</list>
+	</section>
+	<section name="NewWizardAction">
 	</section>
 </section>

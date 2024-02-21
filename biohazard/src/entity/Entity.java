@@ -15,31 +15,75 @@ public class Entity {
 	GamePanel gp;	
 	public int worldX, worldY;
 	public int speed;
-	public BufferedImage up1, up2, down1, down2, left1, left2, left3, right1, right2, right3;
-	public String direction;
+	public BufferedImage up1, up2, up3, down1, down2, down3, left1, left2, left3, right1, right2, right3;
+	public String direction = "down";
 	public int spiteCounter = 0;
 	public int spriteNum = 1;
-	public Rectangle solidArea = new Rectangle(0, 0, 64, 64);
+	public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
 	public int solidAreaDefaultX, solidAreaDefaultY;
 	public boolean collisionOn = false;
+	public int actionLockCounter = 0;
+	public boolean invincible = false;
+	public int invincibleCounter = 0;
+	String dialogues[] = new String[20];
+	int dialogueIndex = 0;
+	public BufferedImage image, image2, image3;
+	public String name;
+	public boolean collision = false;
+	public int type; // 0 = player, 1 = npc, 2 = monster
+	
+	//Character Status
+	public int maxLife;
+	public int life;
 	
 	public Entity(GamePanel gp) {
 		this.gp = gp;
 	}
 	
-	public void setAction() {
+	public void setAction() {}
+	public void speak() {
 		
+		if(dialogues[dialogueIndex] == null) {
+			dialogueIndex = 0;
+		}
+		gp.ui.currentDialogue = dialogues[dialogueIndex];
+		dialogueIndex++;
+		
+	    switch(gp.player.direction) {
+	        case "up":
+	            direction = "down";
+	            break;
+	        case "down":
+	            direction = "up";
+	            break;
+	        case "left":
+	            direction = "right";
+	            break;
+	        case "right":
+	            direction = "left";
+	            break;
+	    }
 	}
-	
 	public void update() {
 		
 		setAction();
 		
 		collisionOn = false;
 		gp.cChecker.checkTile(this);
+		gp.cChecker.checkObject(this, false);
+		gp.cChecker.checkEntity(this, gp.npc);
+		gp.cChecker.checkEntity(this, gp.enemies);
+		boolean contactPlayer = gp.cChecker.checkPlayer(this);
 		
-	    //If Collision is false, player can move
-	    
+		if(this.type == 2 && contactPlayer == true) {
+			if(gp.player.invincible == false) {
+				//We can give damange
+				gp.player.life -= 1;
+				gp.player.invincible = true;
+			}
+		}
+		
+	    //If Collision is false, player can move 
 	    if(collisionOn == false) {
 	    	
 	    	switch(direction) {
@@ -49,7 +93,7 @@ public class Entity {
 			case "right": worldX += speed; break;
 	    }
 	    	
-	    }
+	 }
 	    
 	    spiteCounter++;
 	    if (spiteCounter > 12) {
@@ -78,6 +122,9 @@ public class Entity {
 				if(spriteNum == 2) {
 					image = up2;
 				}
+				if(spriteNum == 3) {
+					image = up3;
+				}
 				break;
 			case "down":
 				if(spriteNum == 1) {
@@ -86,6 +133,9 @@ public class Entity {
 				if(spriteNum == 2) {
 					image = down2;
 				}
+				if(spriteNum == 3) {
+					image = down3;
+				}
 				break;
 			case "left":
 				if(spriteNum == 1) {
@@ -93,6 +143,9 @@ public class Entity {
 				}
 				if(spriteNum == 2) {
 					image = left2;
+				}
+				if(spriteNum == 3) {
+					image = left3;
 				}
 				break;
 			case "right":

@@ -1,143 +1,92 @@
 package main;
 
 import java.awt.Color;
+
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import entity.Entity;
 import entity.Player;
-import object.SuperObject;
 import tile.TileManager;
 
-public class GamePanel extends JPanel implements Runnable, MouseWheelListener {
+public class GamePanel extends JPanel implements Runnable{
 
-    private JFrame window;
-    private double zoomLevel = 1.0; 
 
-//Screen Settings
-	
+    //Screen Settings
 	final int originalTileSize = 64; 
 	final int scale = 3;
 	public int tileSize = originalTileSize;
-	public int maxScreenCol = 14;
-	public int maxScreenRow = 10;
+	public int maxScreenCol = 20;
+	public int maxScreenRow = 12;
 	public int screenWidth = tileSize * maxScreenCol;
 	public int screenHeight = tileSize * maxScreenRow;
 	
 	//World Settings
-	
 	public final int maxWorldCol = 99;
 	public final int maxWorldRow = 99;
 	
-	//FPS
-	
+	//Frame Per Second Setter
 	int FPS = 60;
 	
 	//System
-	
 	TileManager tileM = new TileManager(this);
-	KeyHandler keyH = new KeyHandler(this);
+	public KeyHandler keyH = new KeyHandler(this);
 	Sound music = new Sound ();
 	Sound se = new Sound ();
 	public CollisionChecker cChecker = new CollisionChecker(this);
 	public AssetSetter aSetter = new AssetSetter(this);
 	public UI ui = new UI(this);
+	public EventHandler eHandler = new EventHandler(this);
 	Thread gameThread;
 	
 	//Entity and Objects
 	public Player player = new Player(this,keyH);
-	public SuperObject obj[] = new SuperObject[99];
-	public Entity npc[] = new Entity[4];
+	public Entity obj[] = new Entity[10];
+	public Entity npc[] = new Entity[10];
+	public Entity enemies[] = new Entity[10];
+	ArrayList<Entity>entityList = new ArrayList<>();
 	
 	//GameState
 	public int gameState;
+	public final int titleState = 0;
 	public final int playState = 1;
 	public final int pauseState = 2;
+	public final int dialogueState = 3;
 	
 	
     public GamePanel(JFrame window) {
-        this.window = window;
-        
+    	
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
 		this.setBackground(Color.black);
 		this.setDoubleBuffered(true);
 		this.addKeyListener(keyH);
 		this.setFocusable(true);
-		this.addMouseWheelListener(this);
 		
 	}
     
-   public void setupGame() {
-	   
-	   aSetter.setObject();
-	   
-	   aSetter.setNPC();
-	   
-	   playMusic(0);
-	   
-	   
-	   gameState = playState;
-	   
-   }
-	
-    public void zoomInOut(MouseWheelEvent e) {
-        int notches = e.getWheelRotation();
-
-        if (notches < 0) {
-            // Scroll Up (Zoom In)
-            double newZoomLevel = zoomLevel + 0.1;
-
-            // Limitar el zoom in al 200%
-            if (newZoomLevel <= 2.0) {
-                zoomLevel = newZoomLevel;
-                int oldTileSize = tileSize;
-                tileSize = (int) (originalTileSize * zoomLevel);
-
-                // Ajuste de la posición del jugador para compensar el cambio en el tamaño del mosaico
-                player.worldX = (int) (player.worldX / (double) oldTileSize * tileSize);
-                player.worldY = (int) (player.worldY / (double) oldTileSize * tileSize);
-
-                // Asegúrate de volver a empaquetar y actualizar la ventana después de cambiar el tamaño del tile
-                this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-                this.setSize(screenWidth, screenHeight);
-                this.window.pack();
-                this.repaint();
-            }
-        } else {
-            // Scroll Down (Zoom Out)
-            double newZoomLevel = zoomLevel - 0.1;
-
-            // Limitar el zoom out al 10%
-            if (newZoomLevel >= 1) {
-                zoomLevel = newZoomLevel;
-                int oldTileSize = tileSize;
-                tileSize = (int) (originalTileSize * zoomLevel);
-
-                // Ajuste de la posición del jugador para compensar el cambio en el tamaño del mosaico
-                player.worldX = (int) (player.worldX / (double) oldTileSize * tileSize);
-                player.worldY = (int) (player.worldY / (double) oldTileSize * tileSize);
-
-                // Asegúrate de volver a empaquetar y actualizar la ventana después de cambiar el tamaño del tile
-                this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-                this.setSize(screenWidth, screenHeight);
-                this.window.pack();
-                this.repaint();
-            }
-        }
+    public void setupGame() {
+ 	   
+ 	   aSetter.setObject();
+ 	   
+ 	   aSetter.setNPC();
+ 	   
+ 	   aSetter.setEnemies();
+ 	   
+ 	   //playMusic(0);
+ 	   
+ 	   
+ 	   gameState = titleState;
+ 	   
     }
-
-    @Override
-    public void mouseWheelMoved(MouseWheelEvent e) {
-        zoomInOut(e);
-    }
-    
 	
+ 
 	public void startGameThread() {
 		
 		gameThread = new Thread(this);
@@ -148,41 +97,57 @@ public class GamePanel extends JPanel implements Runnable, MouseWheelListener {
 	@Override
 	public void run() {
 		
+		System.out.println("The Program is Running");
+		
 		double drawInterval = 1000000000/FPS;
-		double nextDrawTime = System.nanoTime() + drawInterval;
+		double delta = 0;
+		long lastTime = System.nanoTime();
+		long currentTime;
+		long timer = 0;
+		int drawCount = 0;
 		
 		while(gameThread != null) {
 			
-			update();
+			currentTime = System.nanoTime();
 			
-			repaint();
+			delta += (currentTime - lastTime) / drawInterval;
+			timer += (currentTime - lastTime);
+			lastTime = currentTime;
 			
-			try {
-				
-				double remainingTime = nextDrawTime - System.nanoTime();
-				remainingTime = remainingTime/1000000;
-				
-				if(remainingTime < 0) {
-					remainingTime = 0;				
-				}
-				
-				Thread.sleep((long)remainingTime);
-				
-				nextDrawTime += drawInterval;
-				
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			if(delta >=1) {
+				update();
+				repaint();
+				delta--;
+				drawCount++;
+			}
+			
+			if(timer >= 1000000000) {
+				System.out.println("Current FrameRate:" + drawCount);
+				drawCount = 0;
+				timer = 0;
 			}
 			
 		}
-		
+
 	}
 	
 	public void update() {
 		
 		if(gameState == playState) {
+			//Player
 			player.update();
+			
+			//NPC
+			for(int i = 0; i < npc.length; i++) {
+				if(npc[i] != null) {
+					npc[i].update();
+				}
+			}
+			for(int i = 0; i < enemies.length; i ++){
+				if(enemies[i] != null) {
+					enemies[i].update();
+				}
+			}
 		}
 		if(gameState == pauseState) {
 			//nothing
@@ -190,51 +155,75 @@ public class GamePanel extends JPanel implements Runnable, MouseWheelListener {
 		
 	}
 	
-	public void paintComponent(Graphics g) {
-		
+	public void paintComponent(Graphics g) {		
 		super.paintComponent(g);
-		
 		Graphics2D g2 = (Graphics2D)g;
 		
 		
 		// Debug
 		long drawStart = 0;
-		if (keyH.checkDrawTime) {
-		    drawStart = System.nanoTime();
+		if(keyH.checkDrawTime == true) {
+			drawStart = System.nanoTime();		
+			}
+
+		//Title Screen
+		if(gameState == titleState) {
+			ui.draw(g2);
 		}
-		
-		//Tile
-		tileM.draw(g2);
-				
-		//Object
-		for(int i = 0; i < obj.length; i++) {
+		//Otthers
+		else {
 			
-			if (obj[i] != null) {
-				obj[i].draw(g2, this);
+			//Tile
+			tileM.draw(g2);
+			
+			//Add Entities to the List
+			entityList.add(player);
+			
+			for(int i = 0; i < npc.length; i++) {
+				if(npc[i] != null) {
+					entityList.add(npc[i]);
+				}
+			}
+			for(int i = 0; i < obj.length; i++) {
+			    if(obj[i] != null) {
+			        entityList.add(obj[i]);
+			    }
+			}
+			for(int i = 0; i < enemies.length; i ++){
+				if(enemies[i] != null) {
+					entityList.add(enemies[i]);
+				}
 			}
 			
-		}
-		//NPC
-		for(int i = 0; i < npc.length; i ++) {
-			if (npc[i] != null) {
-				npc[i].draw(g2);
-			}
-		}
-		
-		//Player
-		player.draw(g2);
-		
-		//UI
-		ui.draw(g2);
+			// Sort
+			Collections.sort(entityList, new Comparator<Entity>() {
+			    @Override
+			    public int compare(Entity e1, Entity e2) {
+			        int result = Integer.compare(e1.worldY, e2.worldY);
+			        return result;
+			    }
+			});
 			
-		g2.dispose();
+			//Draw Entities
+			for(int i = 0; i < entityList.size(); i ++) {
+				entityList.get(i).draw(g2);
+			}
+			
+			//Empty Entity List
+			entityList.clear();
+			
+			
+			//UI
+			ui.draw(g2);
+		}
+		
 		// Debug
-		if (keyH.checkDrawTime) {
-		    long drawEnd = System.nanoTime();
-		    long passed = drawEnd - drawStart;
-		    g2.setColor(Color.white);
-		    g2.drawString("Tiempo de Dibujo: " + passed, 10, 400);
-		    System.out.println("Tiempo de Dibujo: " + passed);
+		if(keyH.checkDrawTime == true) {
+		long drawEnd = System.nanoTime();
+		long passed = drawEnd - drawStart;
+		g2.setColor(Color.white);
+		g2.drawString("Draw Time: " + passed, 15, 450);
+		System.out.println("Draw Time: " + passed);
 		}
 		
 		g2.dispose();
