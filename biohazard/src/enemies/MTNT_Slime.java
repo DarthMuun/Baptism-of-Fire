@@ -7,14 +7,20 @@ import main.GamePanel;
 
 public class MTNT_Slime extends Entity{
 	
+	GamePanel gp;
+	
 	public MTNT_Slime(GamePanel gp) {
 		super(gp);
+		
+		this.gp = gp;
 		
 		type = 2;
 		name = "Slime";
 		speed = 1;
 		maxLife = 4;
 		life = maxLife;
+		attack = 5;
+		defense = 0;
 		
 		solidArea.x = 3;
 		solidArea.y = 18;
@@ -28,16 +34,17 @@ public class MTNT_Slime extends Entity{
 	
 	public void getImage() {
 		
-		up1 = setup("/enemies/greenslime_down_1");
-		up2 = setup("/enemies/greenslime_down_3");
-		down1 = setup("/enemies/greenslime_down_1");
-		down2 = setup("/enemies/greenslime_down_3");
-		left1 = setup("/enemies/greenslime_down_1");
-		left2 = setup("/enemies/greenslime_down_3");
-		right1 = setup("/enemies/greenslime_down_1");
-		right2 = setup("/enemies/greenslime_down_3");
+		up1 = setup("/enemies/greenslime_down_1",gp.tileSize,gp.tileSize);
+		up2 = setup("/enemies/greenslime_down_3",gp.tileSize,gp.tileSize);
+		down1 = setup("/enemies/greenslime_down_1",gp.tileSize,gp.tileSize);
+		down2 = setup("/enemies/greenslime_down_3",gp.tileSize,gp.tileSize);
+		left1 = setup("/enemies/greenslime_down_1",gp.tileSize,gp.tileSize);
+		left2 = setup("/enemies/greenslime_down_3",gp.tileSize,gp.tileSize);
+		right1 = setup("/enemies/greenslime_down_1",gp.tileSize,gp.tileSize);
+		right2 = setup("/enemies/greenslime_down_3",gp.tileSize,gp.tileSize);
 		
 	}
+	
 	public void setAction() {
 		
 		actionLockCounter ++;
@@ -65,4 +72,11 @@ public class MTNT_Slime extends Entity{
 		}
 		
 	}
+	
+	public void damageAction() {
+		
+		actionLockCounter = 0;
+		direction = gp.player.direction;
+	}
+	
 }

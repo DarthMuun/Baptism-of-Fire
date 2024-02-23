@@ -28,7 +28,34 @@ public class KeyHandler implements KeyListener{
 	    int code = e.getKeyCode();
 	    
 	    //Title State
+	    if(gp.gameState == gp.titleState) {
+	    	titleState(code);
+	    }
 	    
+	    
+	    //Play State
+	    if(gp.gameState == gp.playState) {
+	    	playState(code);
+	    }
+	    
+	    //Pause State
+	    else if(gp.gameState == gp.pauseState) {
+	    	pauseState(code);
+	    }
+	    
+	    //Dialogue State
+	    if(gp.gameState == gp.dialogueState) {
+	    	dialogueState(code);
+	    }
+	    //Character State
+    	else if (gp.gameState == gp.characterState) {
+    		characterState(code);
+    	}
+	    
+	}
+	
+	public void titleState (int code) {
+		
 	    if (code == KeyEvent.VK_UP) {
 	        gp.ui.commandNum--;
 	        if(gp.ui.commandNum < 0) {
@@ -55,69 +82,71 @@ public class KeyHandler implements KeyListener{
 	    		System.exit(0);
 	    	}
 	    }
+	}
+	public void playState (int code) {
+		
+	    if (code == KeyEvent.VK_W) {
+	        upPressed = true;
+	    }
+
+	    if (code == KeyEvent.VK_S) {
+	        downPressed = true;
+	    } 
+
+	    if (code == KeyEvent.VK_A) {
+	        leftPressed = true;
+	    }
+
+	    if (code == KeyEvent.VK_D) {
+	        rightPressed = true;
+	    }
 	    
-	    
-	    //Play State
-	    if(gp.gameState == gp.playState) {
+	    if (code == KeyEvent.VK_ESCAPE) {
 	    	
-		    if (code == KeyEvent.VK_W) {
-		        upPressed = true;
-		    }
-
-		    if (code == KeyEvent.VK_S) {
-		        downPressed = true;
-		    } 
-
-		    if (code == KeyEvent.VK_A) {
-		        leftPressed = true;
-		    }
-
-		    if (code == KeyEvent.VK_D) {
-		        rightPressed = true;
-		    }
-		    
-		    if (code == KeyEvent.VK_ESCAPE) {
-		    	
-		    	gp.gameState = gp.pauseState;
-		        
-		    }
-		    
-		    if (code == KeyEvent.VK_SPACE) {
-		    	enterPressed = true;
-		    }
-		    
-		    if (code == KeyEvent.VK_E) {
-		    	healPressed = true;
-		    }
-		    
-
-		    //DEBUG
-		    
-		    if (code == KeyEvent.VK_T) {
-		    	if(checkDrawTime == false) {
-		    		checkDrawTime = true;
-		    	}
-		    	else if(checkDrawTime == true) {
-		    		checkDrawTime = false;
-		    	}
-		    }
+	    	gp.gameState = gp.pauseState;
+	        
+	    }
+	    if (code == KeyEvent.VK_C) {
+	    	gp.gameState = gp.characterState;
+	    }
+	    if (code == KeyEvent.VK_ENTER) {
+	    	enterPressed = true;
 	    }
 	    
-	    //Pause State
-	    else if(gp.gameState == gp.pauseState) {
-		    if(code == KeyEvent.VK_ESCAPE) {
-		    	gp.gameState = gp.playState;
-		    }
+	    if (code == KeyEvent.VK_E) {
+	    	healPressed = true;
 	    }
 	    
-	    //Dialogue State
-	    if(gp.gameState == gp.dialogueState) {
-	    	if(code == KeyEvent.VK_SPACE) {
-	    		gp.gameState = gp.playState;
+
+	    //DEBUG
+	    
+	    if (code == KeyEvent.VK_T) {
+	    	if(checkDrawTime == false) {
+	    		checkDrawTime = true;
 	    	}
-	    	
+	    	else if(checkDrawTime == true) {
+	    		checkDrawTime = false;
+	    	}
 	    }
-	    
+		
+	}
+	public void pauseState (int code) {
+		
+	    if(code == KeyEvent.VK_ESCAPE) {
+	    	gp.gameState = gp.playState;
+	    }
+	}
+	public void dialogueState (int code) {
+		
+    	if(code == KeyEvent.VK_ENTER) {
+    		gp.gameState = gp.playState;
+    	}
+	}
+	public void characterState (int code) {
+		
+    	if(code == KeyEvent.VK_ESCAPE) {
+    		gp.gameState = gp.playState;
+    	}
 	}
 
 	@Override

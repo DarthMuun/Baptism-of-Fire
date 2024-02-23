@@ -28,6 +28,10 @@ public class AssetSetter {
     	gp.enemies[0] = new MTNT_Slime(gp);
     	gp.enemies[0].worldX = gp.tileSize*65;
     	gp.enemies[0].worldY = gp.tileSize*83;
+    	
+    	gp.enemies[1] = new MTNT_Slime(gp);
+    	gp.enemies[1].worldX = gp.tileSize*63;
+    	gp.enemies[1].worldY = gp.tileSize*80;
   
     }
 }

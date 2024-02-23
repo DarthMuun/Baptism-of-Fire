@@ -9,7 +9,7 @@ public class OBJ_ItemOne extends Entity{
 		super(gp);
 		
 		name = "ItemonOne";
-		down1 = setup("/objects/staminup");
+		down1 = setup("/objects/staminup",gp.tileSize,gp.tileSize);
 	}
 	
 }

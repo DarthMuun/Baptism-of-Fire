@@ -1,11 +1,8 @@
-/main/
 /entity/
-/object/
-/tile/
-/font/
-/objects/
-/tiles/
-/maps/
+/main/
 /enemies/
-/player/
 /sound/
+/tiles/
+/objects/
+/npc/
+/object/

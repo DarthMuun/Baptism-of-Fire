@@ -22,16 +22,16 @@ public class NPC_Prototype extends Entity {
 	public void getImage() {
 		
 		
-		up1 = setup ("/npc/npc_up1");
-		up2 = setup ("/npc/npc_up2");
-		down1 = setup ("/npc/npc_down1");
-		down2 = setup ("/npc/npc_down2");
-		left1 = setup("/npc/npc_left1");
-		left2 = setup ("/npc/npc_left2");
-		left3 = setup ("/npc/npc_left3");
-		right1 = setup("/npc/npc_right1");
-		right2 = setup ("/npc/npc_right2");
-		right3 = setup ("/npc/npc_right3");
+		up1 = setup ("/npc/npc_up1",gp.tileSize,gp.tileSize);
+		up2 = setup ("/npc/npc_up2",gp.tileSize,gp.tileSize);
+		down1 = setup ("/npc/npc_down1",gp.tileSize,gp.tileSize);
+		down2 = setup ("/npc/npc_down2",gp.tileSize,gp.tileSize);
+		left1 = setup("/npc/npc_left1",gp.tileSize,gp.tileSize);
+		left2 = setup ("/npc/npc_left2",gp.tileSize,gp.tileSize);
+		left3 = setup ("/npc/npc_left3",gp.tileSize,gp.tileSize);
+		right1 = setup("/npc/npc_right1",gp.tileSize,gp.tileSize);
+		right2 = setup ("/npc/npc_right2",gp.tileSize,gp.tileSize);
+		right3 = setup ("/npc/npc_right3",gp.tileSize,gp.tileSize);
 	
 		
 	}

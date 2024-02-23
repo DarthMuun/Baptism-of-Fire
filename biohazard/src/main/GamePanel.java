@@ -16,10 +16,9 @@ import entity.Entity;
 import entity.Player;
 import tile.TileManager;
 
-public class GamePanel extends JPanel implements Runnable{
+public class GamePanel extends JPanel implements Runnable {
 
-
-    //Screen Settings
+	//Screen Settings
 	final int originalTileSize = 64; 
 	final int scale = 3;
 	public int tileSize = originalTileSize;
@@ -38,8 +37,8 @@ public class GamePanel extends JPanel implements Runnable{
 	//System
 	TileManager tileM = new TileManager(this);
 	public KeyHandler keyH = new KeyHandler(this);
-	Sound music = new Sound ();
-	Sound se = new Sound ();
+	public Sound music = new Sound ();
+	public Sound se = new Sound ();
 	public CollisionChecker cChecker = new CollisionChecker(this);
 	public AssetSetter aSetter = new AssetSetter(this);
 	public UI ui = new UI(this);
@@ -59,6 +58,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int playState = 1;
 	public final int pauseState = 2;
 	public final int dialogueState = 3;
+	public final int characterState = 4;
 	
 	
     public GamePanel(JFrame window) {
@@ -86,7 +86,6 @@ public class GamePanel extends JPanel implements Runnable{
  	   
     }
 	
- 
 	public void startGameThread() {
 		
 		gameThread = new Thread(this);
@@ -132,28 +131,35 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 	
 	public void update() {
-		
-		if(gameState == playState) {
-			//Player
-			player.update();
-			
-			//NPC
-			for(int i = 0; i < npc.length; i++) {
-				if(npc[i] != null) {
-					npc[i].update();
-				}
-			}
-			for(int i = 0; i < enemies.length; i ++){
-				if(enemies[i] != null) {
-					enemies[i].update();
-				}
-			}
-		}
-		if(gameState == pauseState) {
-			//nothing
-		}
-		
+	    if (gameState == playState) {
+	        // Actualizar jugador
+	        player.update();
+	        
+	        // Actualizar NPC
+	        for (int i = 0; i < npc.length; i++) {
+	            if (npc[i] != null) {
+	                npc[i].update();
+	            }
+	        }
+	        
+	        // Actualizar enemigos
+	        for (int i = 0; i < enemies.length; i++) {
+	            if (enemies[i] != null) {
+	                if (enemies[i].alive && !enemies[i].dying) {
+	                    enemies[i].update();
+	                }
+	                if (!enemies[i].alive) {
+	                    enemies[i] = null;
+	                }
+	            }
+	        }
+	    }
+	    
+	    if (gameState == pauseState) {
+	        // Nada que hacer en el estado de pausa
+	    }
 	}
+
 	
 	public void paintComponent(Graphics g) {		
 		super.paintComponent(g);

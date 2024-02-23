@@ -52,6 +52,7 @@ public class EventHandler {
 	public void damagePit(int gameState) {
 		
 		gp.gameState = gameState;
+		gp.playSE(6);
 		gp.ui.currentDialogue = "Duele no?";
 		gp.player.life -= 1;
 	}
@@ -60,6 +61,8 @@ public class EventHandler {
 		
 		if(gp.keyH.healPressed == true) {
 			gp.gameState = gameState;
+			gp.player.attackCanceled = true;
+			gp.playSE(3);
 			gp.ui.currentDialogue = "Estas curado!";
 			gp.player.life = gp.player.maxLife;
 		}
