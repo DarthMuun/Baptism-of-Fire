@@ -121,18 +121,7 @@ public class Entity {
 		boolean contactPlayer = gp.cChecker.checkPlayer(this);
 		
 		if(this.type == type_enemy && contactPlayer == true) {
-			if(gp.player.invincible == false) {
-				//We can give damange
-				gp.playSE(6);
-				
-				int damage = attack - gp.player.defense;
-				if(damage < 0) {
-					damage = 0;
-				}
-				life -= damage;
-
-				gp.player.invincible = true;
-			}
+			damagePlayer(attack);
 		}
 		
 	    //If Collision is false, player can move 
@@ -161,10 +150,25 @@ public class Entity {
 				invincibleCounter = 0;
 			}
 		}
+		if(shotAvailableCounter < 30) {
+			shotAvailableCounter++;
+		}
 	}
 	
-	public void damagePlayer(){
+	public void damagePlayer(int attack){
 		
+		if(gp.player.invincible == false) {
+			//We can give damange
+			gp.playSE(6);
+			
+			int damage = attack - gp.player.defense;
+			if(damage < 0) {
+				damage = 0;
+			}
+			life -= damage;
+
+			gp.player.invincible = true;
+		}
 	}
 	
 	public void draw(Graphics2D g2) {

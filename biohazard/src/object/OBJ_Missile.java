@@ -1,5 +1,6 @@
 package object;
 
+import entity.Entity;
 import entity.Projectile;
 import main.GamePanel;
 
@@ -34,5 +35,17 @@ public class OBJ_Missile extends Projectile{
 		left2 = setup ("/projectile/missileleft2",gp.tileSize,gp.tileSize);
 		right1 = setup ("/projectile/missileright1",gp.tileSize,gp.tileSize);
 		right2 = setup ("/projectile/missileright2",gp.tileSize,gp.tileSize);
+	}
+	
+	public boolean haveResource(Entity user) {
+		
+		boolean haveResource = false;
+		if(user.ammo >= useCost) {
+			haveResource = true;
+		}
+		return haveResource;
+	}
+	public void substractResource (Entity user) {
+		user.ammo -= useCost;
 	}
 }

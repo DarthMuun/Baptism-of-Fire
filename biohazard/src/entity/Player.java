@@ -8,15 +8,12 @@ import java.util.ArrayList;
 
 import main.GamePanel;
 import main.KeyHandler;
-import object.OBJ_ItemOne;
-import object.OBJ_Key;
 import object.OBJ_Missile;
 import object.OBJ_PorraOne;
 import object.OBJ_ShieldOne;
 
 public class Player extends Entity {
 	
-	GamePanel gp;
 	KeyHandler keyH;
 	public final int screenX;
 	public final int screenY;
@@ -59,13 +56,15 @@ public class Player extends Entity {
 		//Spawn
 		worldX = gp.tileSize * 25;
 		worldY = gp.tileSize * 81;
-		speed = 4;
+		speed = 3;
 		direction = "up";
 		
 		//Status
 		level = 1;
 		maxLife = 6;
 		life = maxLife;
+		maxAmmo = 4;
+		ammo = maxAmmo;
 		strength = 1; //More strength = more damage
 		dexterity = 1; // More dexterity = less damage recieves
 		exp = 0;
@@ -177,7 +176,6 @@ public class Player extends Entity {
 		    //Check Event
 		    gp.eHandler.checkEvent();
 		    
-		    gp.keyH.interactPressed = false;
 		    
 		    //If Collision is false, player can move
 		    if(collisionOn == false && keyH.interactPressed == false) {
@@ -191,6 +189,13 @@ public class Player extends Entity {
 		    	
 		}
 		    
+		    if(keyH.interactPressed == true && attackCanceled == false) {
+		    	gp.playSE(7);
+		    	attacking = true;
+		    	spriteCounter =0;
+		    }
+		  
+		  attackCanceled = false;
 		  gp.keyH.interactPressed = false;
 		    
 		  spriteCounter++;
@@ -213,10 +218,14 @@ public class Player extends Entity {
 			
 		}
 		
-		if(gp.keyH.shotKeyPressed == true && projectile.alive == false && shotAvailableCounter == 30) {
+		if(gp.keyH.shotKeyPressed == true && projectile.alive == false 
+				&& shotAvailableCounter == 30 && projectile.haveResource(this) == true) {
 			
 			//Set Default Coordinates, direction and user
 			projectile.set(worldX, worldY, direction, true, this);
+			
+			//Substract the cost ammo
+			projectile.substractResource(this);
 			
 			//Add it to the list
 			gp.projectileList.add(projectile);
