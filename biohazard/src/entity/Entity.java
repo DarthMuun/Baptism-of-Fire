@@ -39,15 +39,17 @@ public class Entity {
 	public int spriteCounter = 0;
 	public int actionLockCounter = 0;
 	public int invincibleCounter = 0;
+	public int shotAvailableCounter = 0;
 	int dyingCounter = 0;
 	int hpBarCounter = 0;
 	
 	//Character Status
-	public int type; // 0 = player, 1 = npc, 2 = monster
 	public String name;
 	public int speed;
 	public int maxLife;
 	public int life;
+	public int maxAmmo;
+	public int ammo;
 	public int level;
 	public int strength;
 	public int dexterity;
@@ -58,10 +60,24 @@ public class Entity {
 	public int parts;
 	public Entity currentWeapon;
 	public Entity currentShield;
+	public Projectile projectile;
 	
 	//Item Attributes
 	public int attackValue;
 	public int defenseValue;
+	public String description = "";
+	public int useCost;
+	
+	//Type
+	public int type; // 0 = player, 1 = npc, 2 = monster
+	public final int type_player = 0; 
+	public final int type_npc = 1;  
+	public final int type_enemy = 2; 
+	public final int type_weapon = 3;  
+	public final int type_shield = 4;  
+	public final int type_shield2 = 4; 
+	public final int type_WonderWeapon = 6;  
+	public final int type_consumable = 7;  
 	
 	public Entity(GamePanel gp) {
 		this.gp = gp;
@@ -92,6 +108,7 @@ public class Entity {
 	            break;
 	    }
 	}
+	public void use (Entity entity) {}
 	public void update() {
 		
 		setAction();
@@ -103,11 +120,17 @@ public class Entity {
 		gp.cChecker.checkEntity(this, gp.enemies);
 		boolean contactPlayer = gp.cChecker.checkPlayer(this);
 		
-		if(this.type == 2 && contactPlayer == true) {
+		if(this.type == type_enemy && contactPlayer == true) {
 			if(gp.player.invincible == false) {
 				//We can give damange
 				gp.playSE(6);
-				gp.player.life -= 1;
+				
+				int damage = attack - gp.player.defense;
+				if(damage < 0) {
+					damage = 0;
+				}
+				life -= damage;
+
 				gp.player.invincible = true;
 			}
 		}
@@ -138,6 +161,10 @@ public class Entity {
 				invincibleCounter = 0;
 			}
 		}
+	}
+	
+	public void damagePlayer(){
+		
 	}
 	
 	public void draw(Graphics2D g2) {

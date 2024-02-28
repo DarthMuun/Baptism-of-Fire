@@ -28,8 +28,10 @@ public class GamePanel extends JPanel implements Runnable {
 	public int screenHeight = tileSize * maxScreenRow;
 	
 	//World Settings
-	public final int maxWorldCol = 99;
-	public final int maxWorldRow = 99;
+	public final int maxWorldCol = 98;
+	public final int maxWorldRow = 98;
+	public final int worldWidth = tileSize * maxWorldCol;
+	public final int worldHeight = tileSize * maxWorldRow;
 	
 	//Frame Per Second Setter
 	int FPS = 60;
@@ -44,12 +46,13 @@ public class GamePanel extends JPanel implements Runnable {
 	public UI ui = new UI(this);
 	public EventHandler eHandler = new EventHandler(this);
 	Thread gameThread;
-	
+		
 	//Entity and Objects
 	public Player player = new Player(this,keyH);
-	public Entity obj[] = new Entity[10];
-	public Entity npc[] = new Entity[10];
-	public Entity enemies[] = new Entity[10];
+	public Entity obj[] = new Entity[100];
+	public Entity npc[] = new Entity[100];
+	public Entity enemies[] = new Entity[100];
+	public ArrayList<Entity>projectileList = new ArrayList<>();
 	ArrayList<Entity>entityList = new ArrayList<>();
 	
 	//GameState
@@ -78,9 +81,6 @@ public class GamePanel extends JPanel implements Runnable {
  	   aSetter.setNPC();
  	   
  	   aSetter.setEnemies();
- 	   
- 	   //playMusic(0);
- 	   
  	   
  	   gameState = titleState;
  	   
@@ -145,14 +145,25 @@ public class GamePanel extends JPanel implements Runnable {
 	        // Actualizar enemigos
 	        for (int i = 0; i < enemies.length; i++) {
 	            if (enemies[i] != null) {
-	                if (enemies[i].alive && !enemies[i].dying) {
+	                if (enemies[i].alive == true && enemies[i].dying == false) {
 	                    enemies[i].update();
 	                }
-	                if (!enemies[i].alive) {
+	                if (enemies[i].alive == false) {
 	                    enemies[i] = null;
 	                }
 	            }
 	        }
+	        for (int i = 0; i < projectileList.size(); i++) {
+	            if (projectileList.get(i) != null) {
+	                if (projectileList.get(i).alive == true) {
+	                    projectileList.get(i).update();
+	                }
+	                if (projectileList.get(i).alive == false) {
+	                    projectileList.remove(i);
+	                }
+	            }
+	        }
+
 	    }
 	    
 	    if (gameState == pauseState) {
@@ -160,7 +171,6 @@ public class GamePanel extends JPanel implements Runnable {
 	    }
 	}
 
-	
 	public void paintComponent(Graphics g) {		
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
@@ -168,7 +178,7 @@ public class GamePanel extends JPanel implements Runnable {
 		
 		// Debug
 		long drawStart = 0;
-		if(keyH.checkDrawTime == true) {
+		if(keyH.showDebugText == true) {
 			drawStart = System.nanoTime();		
 			}
 
@@ -200,7 +210,11 @@ public class GamePanel extends JPanel implements Runnable {
 					entityList.add(enemies[i]);
 				}
 			}
-			
+			for(int i = 0; i < projectileList.size(); i ++){
+				if(projectileList.get(i) != null) {
+					entityList.add(projectileList.get(i));
+				}
+			}
 			// Sort
 			Collections.sort(entityList, new Comparator<Entity>() {
 			    @Override
@@ -224,12 +238,17 @@ public class GamePanel extends JPanel implements Runnable {
 		}
 		
 		// Debug
-		if(keyH.checkDrawTime == true) {
+		if(keyH.showDebugText == true) {
 		long drawEnd = System.nanoTime();
 		long passed = drawEnd - drawStart;
 		g2.setColor(Color.white);
-		g2.drawString("Draw Time: " + passed, 15, 450);
+		g2.drawString("Tiempo de Dibujo: " + passed, 16, 455);
+		g2.drawString("Coordenada X: " + player.worldX, 16, 475);
+		g2.drawString("Coordenada Y: " + player.worldY, 16, 495);
+		g2.drawString("Columna " + (player.worldX + player.solidAreaDefaultX)/tileSize, 16, 515);
+		g2.drawString("Fila " + (player.worldY + player.solidAreaDefaultY)/tileSize, 16, 535);
 		System.out.println("Draw Time: " + passed);
+		
 		}
 		
 		g2.dispose();

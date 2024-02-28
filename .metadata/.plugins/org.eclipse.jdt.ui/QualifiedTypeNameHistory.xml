@@ -7,11 +7,8 @@
     <fullyQualifiedTypeName name="java.awt.event.WindowEvent"/>
     <fullyQualifiedTypeName name="java.lang.ModuleLayer.Controller"/>
     <fullyQualifiedTypeName name="java.awt.Image"/>
-    <fullyQualifiedTypeName name="object.OBJ_Key"/>
     <fullyQualifiedTypeName name="object.OBJ_Chest"/>
     <fullyQualifiedTypeName name="object.OBJ_Door"/>
-    <fullyQualifiedTypeName name="entity.Player"/>
-    <fullyQualifiedTypeName name="object.OBJ_ItemOne"/>
     <fullyQualifiedTypeName name="javax.sound.sampled.Clip"/>
     <fullyQualifiedTypeName name="java.net.URL"/>
     <fullyQualifiedTypeName name="javax.sound.sampled.AudioSystem"/>
@@ -31,14 +28,21 @@
     <fullyQualifiedTypeName name="java.io.IOException"/>
     <fullyQualifiedTypeName name="javax.imageio.ImageIO"/>
     <fullyQualifiedTypeName name="java.awt.Graphics2D"/>
-    <fullyQualifiedTypeName name="tile.TileManager"/>
     <fullyQualifiedTypeName name="java.io.InputStream"/>
     <fullyQualifiedTypeName name="java.io.BufferedReader"/>
     <fullyQualifiedTypeName name="java.io.InputStreamReader"/>
     <fullyQualifiedTypeName name="java.awt.Graphics"/>
     <fullyQualifiedTypeName name="main.GamePanel"/>
     <fullyQualifiedTypeName name="main.UtilityTool"/>
-    <fullyQualifiedTypeName name="entity.Entity"/>
     <fullyQualifiedTypeName name="entity.NPC_Prototype"/>
     <fullyQualifiedTypeName name="java.awt.BasicStroke"/>
+    <fullyQualifiedTypeName name="entity.Player"/>
+    <fullyQualifiedTypeName name="tile.TileManager"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="object.OBJ_Key"/>
+    <fullyQualifiedTypeName name="object.OBJ_ItemOne"/>
+    <fullyQualifiedTypeName name="object.OBJ_wrench"/>
+    <fullyQualifiedTypeName name="object.OBJ_RiotShield"/>
+    <fullyQualifiedTypeName name="entity.Entity"/>
+    <fullyQualifiedTypeName name="object.OBJ_HealthElix"/>
 </qualifiedTypeNameHistroy>

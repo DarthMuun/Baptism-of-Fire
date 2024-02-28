@@ -14,13 +14,14 @@ public class MTNT_Slime extends Entity{
 		
 		this.gp = gp;
 		
-		type = 2;
-		name = "Slime";
+		type = type_enemy;
+		name = "Baby Gloop";
 		speed = 1;
 		maxLife = 4;
 		life = maxLife;
-		attack = 5;
+		attack = 2;
 		defense = 0;
+		exp = 5;
 		
 		solidArea.x = 3;
 		solidArea.y = 18;

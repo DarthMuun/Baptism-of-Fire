@@ -8,8 +8,9 @@ public class OBJ_ItemOne extends Entity{
 	public OBJ_ItemOne(GamePanel gp) {
 		super(gp);
 		
-		name = "ItemonOne";
+		name = "Stamin Up";
 		down1 = setup("/objects/staminup",gp.tileSize,gp.tileSize);
+		description = "[" + name + "]\nPfft! los esteroides se quedan cortos";
 	}
 	
 }

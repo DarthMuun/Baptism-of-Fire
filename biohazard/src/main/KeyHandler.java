@@ -8,10 +8,10 @@ public class KeyHandler implements KeyListener{
 	GamePanel gp;
 	boolean musicPlayed = false;
 	
-	public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, healPressed;
+	public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, interactPressed, shotKeyPressed;
 	
 	//Debug
-	boolean checkDrawTime = false;
+	boolean showDebugText = false;
 	
 	//Pause Setings
 	public KeyHandler(GamePanel gp) {
@@ -31,20 +31,16 @@ public class KeyHandler implements KeyListener{
 	    if(gp.gameState == gp.titleState) {
 	    	titleState(code);
 	    }
-	    
-	    
 	    //Play State
-	    if(gp.gameState == gp.playState) {
+	    else if(gp.gameState == gp.playState) {
 	    	playState(code);
 	    }
-	    
 	    //Pause State
 	    else if(gp.gameState == gp.pauseState) {
 	    	pauseState(code);
 	    }
-	    
 	    //Dialogue State
-	    if(gp.gameState == gp.dialogueState) {
+	    else if(gp.gameState == gp.dialogueState) {
 	    	dialogueState(code);
 	    }
 	    //Character State
@@ -88,45 +84,45 @@ public class KeyHandler implements KeyListener{
 	    if (code == KeyEvent.VK_W) {
 	        upPressed = true;
 	    }
-
 	    if (code == KeyEvent.VK_S) {
 	        downPressed = true;
 	    } 
-
 	    if (code == KeyEvent.VK_A) {
 	        leftPressed = true;
 	    }
-
 	    if (code == KeyEvent.VK_D) {
 	        rightPressed = true;
 	    }
-	    
 	    if (code == KeyEvent.VK_ESCAPE) {
-	    	
-	    	gp.gameState = gp.pauseState;
-	        
+	    	gp.gameState = gp.pauseState;    
 	    }
 	    if (code == KeyEvent.VK_C) {
 	    	gp.gameState = gp.characterState;
+	    	gp.playSE(9);
 	    }
 	    if (code == KeyEvent.VK_ENTER) {
 	    	enterPressed = true;
 	    }
-	    
-	    if (code == KeyEvent.VK_E) {
-	    	healPressed = true;
-	    }
+        if (code == KeyEvent.VK_SPACE) {
+        	interactPressed = true;
+        }
+        if (code == KeyEvent.VK_E) {
+        	shotKeyPressed = true;
+        }
 	    
 
 	    //DEBUG
 	    
 	    if (code == KeyEvent.VK_T) {
-	    	if(checkDrawTime == false) {
-	    		checkDrawTime = true;
+	    	if(showDebugText == false) {
+	    		showDebugText = true;
 	    	}
-	    	else if(checkDrawTime == true) {
-	    		checkDrawTime = false;
+	    	else if(showDebugText == true) {
+	    		showDebugText = false;
 	    	}
+	    }
+	    if(code == KeyEvent.VK_Y) {
+	    	gp.tileM.loadMap("/maps/demo.txt");
 	    }
 		
 	}
@@ -138,14 +134,43 @@ public class KeyHandler implements KeyListener{
 	}
 	public void dialogueState (int code) {
 		
-    	if(code == KeyEvent.VK_ENTER) {
+    	if(code == KeyEvent.VK_SPACE) {
     		gp.gameState = gp.playState;
     	}
 	}
 	public void characterState (int code) {
 		
-    	if(code == KeyEvent.VK_ESCAPE) {
+    	if(code == KeyEvent.VK_C) {
     		gp.gameState = gp.playState;
+    		gp.playSE(9);
+    	}
+    	if(code == KeyEvent.VK_UP) {
+    		if(gp.ui.slotRow != 0) {
+        		gp.ui.slotRow--;
+        		gp.playSE(8);
+    		}
+    	}
+    	if(code == KeyEvent.VK_DOWN) {
+    		if(gp.ui.slotRow != 4) {
+        		gp.ui.slotRow++;
+        		gp.playSE(8);
+    		}
+    	}
+    	if(code == KeyEvent.VK_LEFT) {
+    		if(gp.ui.slotCol != 0) {
+        		gp.ui.slotCol--;
+        		gp.playSE(8);
+    		}
+    	}
+    	if(code == KeyEvent.VK_RIGHT) {
+    		if(gp.ui.slotCol != 8) {
+        		gp.ui.slotCol++;
+        		gp.playSE(8);
+    		}
+    	}
+    	if(code == KeyEvent.VK_ENTER) {
+    		gp.playSE(3);
+    		gp.player.selectItem();
     	}
 	}
 
@@ -168,6 +193,10 @@ public class KeyHandler implements KeyListener{
 		
 		if (code == KeyEvent.VK_D) {
 			rightPressed = false;
+		}
+		
+		if (code == KeyEvent.VK_E) {
+			shotKeyPressed = false;
 		}
 		
 	}

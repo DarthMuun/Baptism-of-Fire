@@ -8,6 +8,9 @@
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="enterPressed"/>
+			<item value="entered"/>
+			<item value="event"/>
 			<item value="this.g2"/>
 			<item value="setFont"/>
 			<item value="font"/>
