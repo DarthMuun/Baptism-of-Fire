@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="java.awt.GraphicsEnvironment"/>
-    <fullyQualifiedTypeName name="java.awt.GraphicsDevice"/>
     <fullyQualifiedTypeName name="javax.swing.SwingUtilities"/>
     <fullyQualifiedTypeName name="java.awt.event.WindowAdapter"/>
     <fullyQualifiedTypeName name="java.awt.event.WindowEvent"/>
@@ -18,21 +16,14 @@
     <fullyQualifiedTypeName name="java.awt.Rectangle"/>
     <fullyQualifiedTypeName name="object.SuperObject"/>
     <fullyQualifiedTypeName name="java.awt.Dimension"/>
-    <fullyQualifiedTypeName name="java.awt.Color"/>
     <fullyQualifiedTypeName name="javax.swing.JFrame"/>
     <fullyQualifiedTypeName name="javax.swing.JPanel"/>
     <fullyQualifiedTypeName name="java.awt.event.KeyListener"/>
     <fullyQualifiedTypeName name="main.KeyHandler"/>
     <fullyQualifiedTypeName name="enity.Player"/>
-    <fullyQualifiedTypeName name="java.awt.image.BufferedImage"/>
-    <fullyQualifiedTypeName name="java.io.IOException"/>
     <fullyQualifiedTypeName name="javax.imageio.ImageIO"/>
-    <fullyQualifiedTypeName name="java.awt.Graphics2D"/>
     <fullyQualifiedTypeName name="java.io.InputStream"/>
-    <fullyQualifiedTypeName name="java.io.BufferedReader"/>
     <fullyQualifiedTypeName name="java.io.InputStreamReader"/>
-    <fullyQualifiedTypeName name="java.awt.Graphics"/>
-    <fullyQualifiedTypeName name="main.GamePanel"/>
     <fullyQualifiedTypeName name="main.UtilityTool"/>
     <fullyQualifiedTypeName name="entity.NPC_Prototype"/>
     <fullyQualifiedTypeName name="java.awt.BasicStroke"/>
@@ -43,6 +34,27 @@
     <fullyQualifiedTypeName name="object.OBJ_ItemOne"/>
     <fullyQualifiedTypeName name="object.OBJ_wrench"/>
     <fullyQualifiedTypeName name="object.OBJ_RiotShield"/>
-    <fullyQualifiedTypeName name="entity.Entity"/>
     <fullyQualifiedTypeName name="object.OBJ_HealthElix"/>
+    <fullyQualifiedTypeName name="entity.Projectile"/>
+    <fullyQualifiedTypeName name="object.OBJ_Blagh"/>
+    <fullyQualifiedTypeName name="object.OBJ_Parts"/>
+    <fullyQualifiedTypeName name="object.OBJ_Heart"/>
+    <fullyQualifiedTypeName name="object.OBJ_Ammo"/>
+    <fullyQualifiedTypeName name="entity.Entity"/>
+    <fullyQualifiedTypeName name="tiles_interactive.InteractiveTile"/>
+    <fullyQualifiedTypeName name="tiles_interactive.IT_SoftWall"/>
+    <fullyQualifiedTypeName name="main.GamePanel"/>
+    <fullyQualifiedTypeName name="java.awt.Color"/>
+    <fullyQualifiedTypeName name="java.awt.Graphics"/>
+    <fullyQualifiedTypeName name="java.awt.Graphics2D"/>
+    <fullyQualifiedTypeName name="java.awt.image.BufferedImage"/>
+    <fullyQualifiedTypeName name="java.awt.GraphicsEnvironment"/>
+    <fullyQualifiedTypeName name="java.awt.GraphicsDevice"/>
+    <fullyQualifiedTypeName name="javax.sound.sampled.FloatControl"/>
+    <fullyQualifiedTypeName name="javax.sound.sampled.FloatControl.Type"/>
+    <fullyQualifiedTypeName name="java.io.BufferedWriter"/>
+    <fullyQualifiedTypeName name="java.io.IOException"/>
+    <fullyQualifiedTypeName name="java.io.FileWriter"/>
+    <fullyQualifiedTypeName name="java.io.BufferedReader"/>
+    <fullyQualifiedTypeName name="java.io.FileReader"/>
 </qualifiedTypeNameHistroy>

@@ -11,9 +11,19 @@ public class OBJ_Ammo extends Entity{
 		super(gp);
 		this.gp = gp;
 		
+		type = type_pickupOnly;
 		name = "Municion Misiles";
+		value = 1;
+		down1 = setup("/objects/full",gp.tileSize,gp.tileSize);	
 		image = setup("/objects/full",gp.tileSize,gp.tileSize);	
 		image2 = setup("/objects/empty",gp.tileSize,gp.tileSize);	
+	}
+	
+	public void use (Entity entity) {
+		
+		gp.playSE(2);
+		gp.ui.addMessage("Has Recuperado +" + value + " misil");
+		entity.ammo += value;
 	}
 
 }

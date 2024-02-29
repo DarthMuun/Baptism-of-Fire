@@ -4,7 +4,10 @@ import java.util.Random;
 
 import entity.Entity;
 import main.GamePanel;
+import object.OBJ_Ammo;
 import object.OBJ_Blagh;
+import object.OBJ_Heart;
+import object.OBJ_Parts;
 
 public class MTNT_Slime extends Entity{
 	
@@ -22,7 +25,7 @@ public class MTNT_Slime extends Entity{
 		life = maxLife;
 		attack = 5;
 		defense = 0;
-		exp = 2;
+		exp = 3;
 		projectile = new OBJ_Blagh(gp);
 		
 		solidArea.x = 3;
@@ -73,13 +76,13 @@ public class MTNT_Slime extends Entity{
 			actionLockCounter = 0;
 			
 		}
-		int i = new Random().nextInt(100)+1;
-		if(i > 99 && projectile.alive == false && shotAvailableCounter == 30) {
+		//int i = new Random().nextInt(100)+1;
+		//if(i > 99 && projectile.alive == false && shotAvailableCounter == 30) {
 			
-			projectile.set(worldX, worldY, direction, true, this);
-			gp.projectileList.add(projectile);
-			shotAvailableCounter = 0;
-		}
+			//projectile.set(worldX, worldY, direction, true, this);
+			//gp.projectileList.add(projectile);
+			//shotAvailableCounter = 0;
+		//}
 	}
 	
 	public void damageAction() {
@@ -87,5 +90,18 @@ public class MTNT_Slime extends Entity{
 		actionLockCounter = 0;
 		direction = gp.player.direction;
 	}
-	
+	public void checkDrop() {
+	    // Cast a die
+	    int i = new Random().nextInt(100) + 1;
+
+	    // Set the monster drop
+	    if (i < 50) {
+	        dropItem(new OBJ_Parts(gp));
+	    } else if (i < 75) {
+	        dropItem(new OBJ_Heart(gp));
+	    } else {
+	        dropItem(new OBJ_Ammo(gp));
+	    }
+	}
+
 }

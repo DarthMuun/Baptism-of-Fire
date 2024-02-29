@@ -6,16 +6,23 @@ public class Main {
 	
 	JFrame myFrame;
 	GamePanel gp;
+	
+	public static JFrame window;
 
 	public static void main(String[] args) {
 
-		JFrame window = new JFrame();
+		window = new JFrame();
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
-		window.setTitle("BoF Demo");
+		window.setTitle("Baptism of Fire Demo Tecnico");
 		
 		GamePanel gamePanel = new GamePanel(window);
 		window.add(gamePanel);
+		
+		gamePanel.config.loadConfig();
+		if(gamePanel.fullScreenOn == true) {
+			window.setUndecorated(true);
+		}
 		
 		window.pack();
 		

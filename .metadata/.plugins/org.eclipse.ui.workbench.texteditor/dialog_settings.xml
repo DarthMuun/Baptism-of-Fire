@@ -8,6 +8,8 @@
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="playSE(2)"/>
+			<item value="public"/>
 			<item value="enterPressed"/>
 			<item value="entered"/>
 			<item value="event"/>

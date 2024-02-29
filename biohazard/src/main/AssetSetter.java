@@ -2,12 +2,15 @@ package main;
 
 import enemies.MTNT_Slime;
 import entity.NPC_Prototype;
+import object.OBJ_Ammo;
 import object.OBJ_Door;
 import object.OBJ_HealthElix;
 import object.OBJ_ItemOne;
 import object.OBJ_Key;
+import object.OBJ_Parts;
 import object.OBJ_RiotShield;
 import object.OBJ_wrench;
+import tiles_interactive.IT_SoftWall;
 
 public class AssetSetter {
 
@@ -34,15 +37,23 @@ public class AssetSetter {
     	i++;
     	gp.obj[i] = new OBJ_HealthElix(gp);
     	gp.obj[i].worldX = gp.tileSize*24;
-    	gp.obj[i].worldY = gp.tileSize*78;
+    	gp.obj[i].worldY = gp.tileSize*77;
     	i++;
     	gp.obj[i] = new OBJ_HealthElix(gp);
     	gp.obj[i].worldX = gp.tileSize*53;
     	gp.obj[i].worldY = gp.tileSize*34;
     	i++;
-    	gp.obj[i] = new OBJ_HealthElix(gp);
+    	gp.obj[i] = new OBJ_Parts(gp);
     	gp.obj[i].worldX = gp.tileSize*95;
     	gp.obj[i].worldY = gp.tileSize*36;
+    	i++;
+    	gp.obj[i] = new OBJ_Parts(gp);
+    	gp.obj[i].worldX = gp.tileSize*24;
+    	gp.obj[i].worldY = gp.tileSize*81;
+    	i++;
+    	gp.obj[i] = new OBJ_Ammo(gp);
+    	gp.obj[i].worldX = gp.tileSize*2;
+    	gp.obj[i].worldY = gp.tileSize*79;
     	i++;
     }
     public void setNPC() {
@@ -162,5 +173,17 @@ public class AssetSetter {
     	gp.enemies[i].worldY = gp.tileSize*78;
     	i++;
 
+    }
+    
+    public void setInteractiveTile() {
+    	
+    	int i = 0;
+    	gp.iTile[i] = new IT_SoftWall(gp,65,35);i++;
+    	gp.iTile[i] = new IT_SoftWall(gp,65,36);i++;
+    	gp.iTile[i] = new IT_SoftWall(gp,65,37);i++;
+    	gp.iTile[i] = new IT_SoftWall(gp,60,55);i++;
+    	gp.iTile[i] = new IT_SoftWall(gp,61,55);i++;
+    	gp.iTile[i] = new IT_SoftWall(gp,62,55);i++;
+    	
     }
 }

@@ -71,7 +71,7 @@ public class EventHandler {
 	public void teleport(int gameState) {
 		
 		if (gp.keyH.interactPressed == true) {
-		gp.playSE(2);
+		gp.playSE(18);
 		gp.gameState = gameState;
 		gp.ui.currentDialogue = "Area A2";
 		gp.player.worldX = gp.tileSize*39;
@@ -84,7 +84,7 @@ public class EventHandler {
 	public void teleport2(int gameState) {
 		
 	    if (gp.keyH.interactPressed == true) {
-	    	gp.playSE(2);
+	    	gp.playSE(18);
 	        gp.gameState = gameState;
 	        gp.ui.currentDialogue = "Area A3";
 	        gp.player.worldX = gp.tileSize * 41; 
@@ -96,7 +96,7 @@ public class EventHandler {
 	public void teleport3(int gameState) {
 		
 	    if (gp.keyH.interactPressed == true) {
-	    	gp.playSE(2);
+	    	gp.playSE(18);
 	        gp.gameState = gameState;
 	        gp.ui.currentDialogue = "Area A4";
 	        gp.player.worldX = gp.tileSize * 61; 
@@ -108,7 +108,7 @@ public class EventHandler {
 	public void teleport4(int gameState) {
 		
 	    if (gp.keyH.interactPressed == true) {
-	    	gp.playSE(2);
+	    	gp.playSE(18);
 	        gp.gameState = gameState;
 	        gp.ui.currentDialogue = "Area A5";
 	        gp.player.worldX = gp.tileSize * 96; 
@@ -120,7 +120,7 @@ public class EventHandler {
 	public void teleport5(int gameState) {
 		
 	    if (gp.keyH.interactPressed == true) {
-	    	gp.playSE(2);
+	    	gp.playSE(18);
 	        gp.gameState = gameState;
 	        gp.ui.currentDialogue = "Area A7";
 	        gp.player.worldX = gp.tileSize * 21; 
@@ -133,7 +133,7 @@ public class EventHandler {
 	public void teleport6(int gameState) {
 		
 	    if (gp.keyH.interactPressed == true) {
-	    	gp.playSE(2);
+	    	gp.playSE(19);
 	        gp.gameState = gameState;
 	        gp.ui.currentDialogue = "Area A1";
 	        gp.player.worldX = gp.tileSize * 38; 
@@ -145,7 +145,7 @@ public class EventHandler {
 	public void teleport7(int gameState) {
 		
 	    if (gp.keyH.interactPressed == true) {
-	    	gp.playSE(2);
+	    	gp.playSE(19);
 	        gp.gameState = gameState;
 	        gp.ui.currentDialogue = "Area A2";
 	        gp.player.worldX = gp.tileSize * 39;
@@ -157,7 +157,7 @@ public class EventHandler {
 	public void teleport8(int gameState) {
 		
 	    if (gp.keyH.interactPressed == true) {
-	    	gp.playSE(2);
+	    	gp.playSE(19);
 	        gp.gameState = gameState;
 	        gp.ui.currentDialogue = "Area A3";
 	        gp.player.worldX = gp.tileSize * 77;
@@ -169,7 +169,7 @@ public class EventHandler {
 	public void teleport9(int gameState) {
 		
 	    if (gp.keyH.interactPressed == true) {
-	    	gp.playSE(2);
+	    	gp.playSE(19);
 	        gp.gameState = gameState;
 	        gp.ui.currentDialogue = "Area A4";
 	        gp.player.worldX = gp.tileSize * 61;
@@ -181,7 +181,7 @@ public class EventHandler {
 	public void teleport10(int gameState) {
 		
 	    if (gp.keyH.interactPressed == true) {
-	    	gp.playSE(2);
+	    	gp.playSE(19);
 	        gp.gameState = gameState;
 	        gp.ui.currentDialogue = "Area A3";
 	        gp.player.worldX = gp.tileSize * 15; 
@@ -193,7 +193,7 @@ public class EventHandler {
 	public void teleport11(int gameState) {
 		
 	    if (gp.keyH.interactPressed == true) {
-	    	gp.playSE(2);
+	    	gp.playSE(18);
 	        gp.gameState = gameState;
 	        gp.ui.currentDialogue = "Area A6";
 	        gp.player.worldX = gp.tileSize * 72; 
@@ -205,7 +205,7 @@ public class EventHandler {
 	public void teleport12(int gameState) {
 		
 	    if (gp.keyH.interactPressed == true) {
-	    	gp.playSE(2);
+	    	gp.playSE(19);
 	        gp.gameState = gameState;
 	        gp.ui.currentDialogue = "Area A3";
 	        gp.player.worldX = gp.tileSize * 77; 

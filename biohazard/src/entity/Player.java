@@ -54,9 +54,9 @@ public class Player extends Entity {
 	public void setDefaultValues() {
 	
 		//Spawn
-		worldX = gp.tileSize * 25;
-		worldY = gp.tileSize * 81;
-		speed = 3;
+		worldX = gp.tileSize * 24;
+		worldY = gp.tileSize * 79;
+		speed = 4;
 		direction = "up";
 		
 		//Status
@@ -78,8 +78,23 @@ public class Player extends Entity {
 		
 	}	
 	
+	public void setDefaultPositions() {
+		
+		worldX = gp.tileSize * 24;
+		worldY = gp.tileSize * 79;
+		direction = "up";
+	}
+	
+	public void restoreLifeAndAmmo() {
+		
+		life = maxLife;
+		ammo = maxAmmo;
+		invincible = false;
+	}
+	
 	public void setItems() {
 		
+		inventory.clear();
 		inventory.add(currentWeapon);
 		inventory.add(currentShield);
 
@@ -173,9 +188,11 @@ public class Player extends Entity {
 		    int enemiesIndex = gp.cChecker.checkEntity(this, gp.enemies);
 		    contactEnemies(enemiesIndex);
 		    
+		    //Cehck Interactive Tile Collision
+		    int iTileIndex = gp.cChecker.checkEntity(this, gp.iTile);
+		    
 		    //Check Event
 		    gp.eHandler.checkEvent();
-		    
 		    
 		    //If Collision is false, player can move
 		    if(collisionOn == false && keyH.interactPressed == false) {
@@ -243,6 +260,16 @@ public class Player extends Entity {
 		if(shotAvailableCounter < 30) {
 			shotAvailableCounter++;
 		}
+		if(life > maxLife) {
+			life = maxLife;
+		}
+		if(ammo > maxAmmo) {
+			ammo = maxAmmo;
+		}
+		if(life <=0) {
+			gp.gameState = gp.gameOverState;
+			gp.playSE(12);
+		}
 	}
 	
 	public void attacking() {
@@ -277,6 +304,9 @@ public class Player extends Entity {
 			int enemiesIndex = gp.cChecker.checkEntity(this, gp.enemies);
 			damageEnemy(enemiesIndex, attack);
 			
+			int iTileIndex = gp.cChecker.checkEntity(this, gp.iTile);
+			damageInteractiveTile(iTileIndex);
+			
 			//After checking collision, restore the original data
 			worldX = currentWorldX;
 			worldY = currentWorldY;
@@ -295,23 +325,30 @@ public class Player extends Entity {
 		
 		if(i != 999) {
 			
-			String text;
-			
-			if(inventory.size() != maxInventorySize) {
+			//Pick up only items
+			if(gp.obj[i].type == type_pickupOnly) {
 				
-				inventory.add(gp.obj[i]);
-				gp.playSE(1);
-				text = "Has recogido " + gp.obj[i].name;
+				gp.obj[i].use(this);
+				gp.obj[i] = null;
 			}
+			//Intentory Items
 			else {
-				text = "No puedes llevar mas de 2";
+				String text;
+				
+				if(inventory.size() != maxInventorySize) {
+					
+					inventory.add(gp.obj[i]);
+					gp.playSE(3);
+					text = "Has recogido " + gp.obj[i].name;
+				}
+				else {
+					text = "No puedes llevar mas de 2";
+				}
+				gp.ui.addMessage(text);
+				gp.obj[i] = null;
 			}
-			gp.ui.addMessage(text);
-			gp.obj[i] = null;
 		}
-		
-	}
-		
+	}		
 	
 	public void interactNPC(int i) {
 		
@@ -322,7 +359,7 @@ public class Player extends Entity {
 				gp.npc[i].speak();
 			}
 			else {
-				gp.playSE(7);
+				//gp.playSE(11);
 				attacking= true;
 			}
 		}	
@@ -372,6 +409,24 @@ public class Player extends Entity {
 		}
 	}
 	
+	public void damageInteractiveTile(int i) {
+		
+		if(i != 999 && gp.iTile[i].destructible == true 
+				&& gp.iTile[i].isCorrectItem(this) == true && gp.iTile[i].invincible == false) {
+			
+			gp.iTile[i].playSE();
+			gp.iTile[i].life--;
+			gp.iTile[i].invincible = true;
+			
+			//Generate particle
+			generateParticle(gp.iTile[i],gp.iTile[i]);
+			
+			if(gp.iTile[i].life == 0) {
+				gp.iTile[i] = gp.iTile[i].getDestroyedForm();
+			}
+		}
+	}
+	
 	public void checkLevelUp() {
 		
 		if (exp >= nextLevelExp) {
@@ -384,7 +439,7 @@ public class Player extends Entity {
 			attack = getAttack();
 			defense = getDefense();
 			
-			gp.playSE(3);
+			gp.playSE(14);
 			gp.gameState = gp.dialogueState;
 			gp.ui.currentDialogue = "Has Subido de Nivel " + level + ".lvl";
 		}

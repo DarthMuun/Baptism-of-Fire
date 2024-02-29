@@ -63,6 +63,7 @@ public class Entity {
 	public Projectile projectile;
 	
 	//Item Attributes
+	public int value;
 	public int attackValue;
 	public int defenseValue;
 	public String description = "";
@@ -75,9 +76,9 @@ public class Entity {
 	public final int type_enemy = 2; 
 	public final int type_weapon = 3;  
 	public final int type_shield = 4;  
-	public final int type_shield2 = 4; 
-	public final int type_WonderWeapon = 6;  
-	public final int type_consumable = 7;  
+	public final int type_WonderWeapon = 5;  
+	public final int type_consumable = 6;  
+	public final int type_pickupOnly = 7;
 	
 	public Entity(GamePanel gp) {
 		this.gp = gp;
@@ -109,6 +110,68 @@ public class Entity {
 	    }
 	}
 	public void use (Entity entity) {}
+	
+	public void checkDrop() {
+		
+	}
+	
+	public void dropItem(Entity droppedItem) {
+		
+		for(int i = 0; i < gp.obj.length; i++) {
+			if(gp.obj[i] == null) {
+				gp.obj[i] = droppedItem;
+				gp.obj[i].worldX = worldX;
+				gp.obj[i].worldY = worldY;
+				break;
+			}
+		}
+	}
+	
+	public Color getpParticleColor() {
+		Color color = null;
+		return color;
+	}
+	
+	public int getParticleSize() {
+		int size = 0;
+		return size;
+	}
+	
+	public int getParticleSpeed() {
+		int speed = 0;
+		return speed;
+	}
+	
+	public int getParticleMaxLife() {
+		int maxLife = 0;
+		return maxLife;
+	}
+	
+	public void generateParticle(Entity generator, Entity target) {
+		
+		Color color = generator.getpParticleColor();
+		int size = generator.getParticleSize();
+		int speed = generator.getParticleSpeed();
+		int maxLife = generator.getParticleMaxLife();
+		
+		Particle p1 = new Particle(gp, target, color, size, speed, maxLife, -1, -1);
+		Particle p2 = new Particle(gp, target, color, size, speed, maxLife, 1, -1);
+		Particle p3 = new Particle(gp, target, color, size, speed, maxLife, -1, 1);
+		Particle p4 = new Particle(gp, target, color, size, speed, maxLife, 1, 1);
+		Particle p5 = new Particle(gp, target, color, size, speed, maxLife, -4, -2);
+		Particle p6 = new Particle(gp, target, color, size, speed, maxLife, 4, -2);
+		Particle p7 = new Particle(gp, target, color, size, speed, maxLife, -4, 2);
+		Particle p8 = new Particle(gp, target, color, size, speed, maxLife, 4, 2);
+		gp.particleList.add(p1);
+		gp.particleList.add(p2);
+		gp.particleList.add(p3);
+		gp.particleList.add(p4);
+		gp.particleList.add(p5);
+		gp.particleList.add(p6);
+		gp.particleList.add(p7);
+		gp.particleList.add(p8);
+	}
+	
 	public void update() {
 		
 		setAction();
@@ -118,6 +181,7 @@ public class Entity {
 		gp.cChecker.checkObject(this, false);
 		gp.cChecker.checkEntity(this, gp.npc);
 		gp.cChecker.checkEntity(this, gp.enemies);
+		gp.cChecker.checkEntity(this, gp.iTile);
 		boolean contactPlayer = gp.cChecker.checkPlayer(this);
 		
 		if(this.type == type_enemy && contactPlayer == true) {
@@ -232,7 +296,7 @@ public class Entity {
 			if(dying == true) {
 				dyingAnimation(g2);
 			}
-			g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+			g2.drawImage(image, screenX, screenY, null);
 			
 			changeAlpha(g2,1F);
 			

@@ -6,7 +6,6 @@ import main.GamePanel;
 public class OBJ_HealthElix extends Entity{
 	
 	GamePanel gp;
-	int value = 5;
 	
 	public OBJ_HealthElix (GamePanel gp) {
 		super(gp);
@@ -15,6 +14,7 @@ public class OBJ_HealthElix extends Entity{
 		
 		type = type_consumable;
 		name = "Elixir de Curacion";
+		value = 5;
 		down1 = setup("/objects/health",gp.tileSize,gp.tileSize);
 		description = "[Elixir de Curacion]\nEl Nombre lo dice, curate!" + value + ".";
 
@@ -25,10 +25,7 @@ public class OBJ_HealthElix extends Entity{
 		gp.gameState = gp.dialogueState;
 		gp.ui.currentDialogue = "Has tomado el " + name + "\n" + "Has recuperado " + value + " de vida.";
 		entity.life += value;
-		if(gp.player.life > gp.player.maxLife) {
-			gp.player.life = gp.player.maxLife;
-		}
-		gp.playSE(3);
+		gp.playSE(15);
 	}
 
 }
