@@ -18,7 +18,7 @@ public class OBJ_Missile extends Projectile{
 		this.gp = gp;
 		
 		name = "Misil";
-		speed = 10;
+		speed = 7;
 		maxLife = 100;
 		life = maxLife;
 		attack = 5;

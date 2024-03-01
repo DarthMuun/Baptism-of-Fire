@@ -15,6 +15,7 @@ import java.util.Comparator;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import ai.PathFinder;
 import entity.Entity;
 import entity.Player;
 import tile.TileManager;
@@ -36,6 +37,8 @@ public class GamePanel extends JPanel implements Runnable {
 	//World Settings
 	public final int maxWorldCol = 98;
 	public final int maxWorldRow = 98;
+	public final int maxMap = 10;
+	public int currentMap = 0;
 	
 	//Full Screen Settings
 	public final int worldWidth = tileSize * maxWorldCol;
@@ -45,10 +48,10 @@ public class GamePanel extends JPanel implements Runnable {
 	public boolean fullScreenOn = false;
 	
 	//Frame Per Second Setter
-	int FPS = 60;
+	int FPS = 120;
 	
 	//System
-	TileManager tileM = new TileManager(this);
+	public TileManager tileM = new TileManager(this);
 	public KeyHandler keyH = new KeyHandler(this);
 	public Sound music = new Sound ();
 	public Sound se = new Sound ();
@@ -57,14 +60,15 @@ public class GamePanel extends JPanel implements Runnable {
 	public UI ui = new UI(this);
 	public EventHandler eHandler = new EventHandler(this);
 	Config config = new Config(this);
+	public PathFinder pFinder = new PathFinder(this);
 	Thread gameThread;
 		
 	//Entity and Objects
 	public Player player = new Player(this,keyH);
-	public Entity obj[] = new Entity[100];
-	public Entity npc[] = new Entity[100];
-	public Entity enemies[] = new Entity[100];
-	public InteractiveTile iTile[] = new InteractiveTile [50];
+	public Entity obj[][] = new Entity[maxMap][100];
+	public Entity npc[][] = new Entity[maxMap][100];
+	public Entity enemies[][] = new Entity[maxMap][100];
+	public InteractiveTile iTile[][] = new InteractiveTile [maxMap][50];
 	public ArrayList<Entity>projectileList = new ArrayList<>();
 	public ArrayList<Entity>particleList = new ArrayList<>();
 	ArrayList<Entity>entityList = new ArrayList<>();
@@ -78,6 +82,8 @@ public class GamePanel extends JPanel implements Runnable {
 	public final int characterState = 4;
 	public final int optionsState = 5;
 	public final int gameOverState = 6;
+	public final int transitionState = 7;
+	public final int tradeState = 8;
 	
     public GamePanel(JFrame window) {
     	
@@ -189,25 +195,25 @@ public class GamePanel extends JPanel implements Runnable {
 	
 	public void update() {
 	    if (gameState == playState) {
-	        // Actualizar jugador
+	        // Update Player
 	        player.update();
 	        
-	        // Actualizar NPC
-	        for (int i = 0; i < npc.length; i++) {
-	            if (npc[i] != null) {
-	                npc[i].update();
+	        // Update NPC
+	        for (int i = 0; i < npc[1].length; i++) {
+	            if (npc[currentMap][i] != null) {
+	                npc[currentMap][i].update();
 	            }
 	        }
 	        
-	        // Actualizar enemigos
-	        for (int i = 0; i < enemies.length; i++) {
-	            if (enemies[i] != null) {
-	                if (enemies[i].alive == true && enemies[i].dying == false) {
-	                    enemies[i].update();
+	        // Update Enemy
+	        for (int i = 0; i < enemies[1].length; i++) {
+	            if (enemies[currentMap][i] != null) {
+	                if (enemies[currentMap][i].alive == true && enemies[currentMap][i].dying == false) {
+	                    enemies[currentMap][i].update();
 	                }
-	                if (enemies[i].alive == false) {
-	                	enemies[i].checkDrop();
-	                    enemies[i] = null;
+	                if (enemies[currentMap][i].alive == false) {
+	                	enemies[currentMap][i].checkDrop();
+	                    enemies[currentMap][i] = null;
 	                }
 	            }
 	        }
@@ -231,9 +237,9 @@ public class GamePanel extends JPanel implements Runnable {
 	                }
 	            }
 	        }
-	        for(int i = 0; i < iTile.length; i ++) {
-	        	if(iTile[i] != null) {
-	        		iTile[i].update();
+	        for(int i = 0; i < iTile[1].length; i ++) {
+	        	if(iTile[currentMap][i] != null) {
+	        		iTile[currentMap][i].update();
 	        	}
 	        }
 
@@ -263,28 +269,28 @@ public class GamePanel extends JPanel implements Runnable {
 			tileM.draw(g2);
 			
 			//Interactive Tile
-			for(int i = 0; i < iTile.length; i++) {
-				if(iTile[i] != null) {
-					iTile[i].draw(g2);
+			for(int i = 0; i < iTile[1].length; i++) {
+				if(iTile[currentMap][i] != null) {
+					iTile[currentMap][i].draw(g2);
 				}
 			}
 			
 			//Add Entities to the List
 			entityList.add(player);
 			
-			for(int i = 0; i < npc.length; i++) {
-				if(npc[i] != null) {
-					entityList.add(npc[i]);
+			for(int i = 0; i < npc[1].length; i++) {
+				if(npc[currentMap][i] != null) {
+					entityList.add(npc[currentMap][i]);
 				}
 			}
-			for(int i = 0; i < obj.length; i++) {
-			    if(obj[i] != null) {
-			        entityList.add(obj[i]);
+			for(int i = 0; i < obj[1].length; i++) {
+			    if(obj[currentMap][i] != null) {
+			        entityList.add(obj[currentMap][i]);
 			    }
 			}
-			for(int i = 0; i < enemies.length; i ++){
-				if(enemies[i] != null) {
-					entityList.add(enemies[i]);
+			for(int i = 0; i < enemies[1].length; i ++){
+				if(enemies[currentMap][i] != null) {
+					entityList.add(enemies[currentMap][i]);
 				}
 			}
 			for(int i = 0; i < projectileList.size(); i ++){

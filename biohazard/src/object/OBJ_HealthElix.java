@@ -17,6 +17,7 @@ public class OBJ_HealthElix extends Entity{
 		value = 5;
 		down1 = setup("/objects/health",gp.tileSize,gp.tileSize);
 		description = "[Elixir de Curacion]\nEl Nombre lo dice, curate!" + value + ".";
+		price = 100;
 
 	}
 	

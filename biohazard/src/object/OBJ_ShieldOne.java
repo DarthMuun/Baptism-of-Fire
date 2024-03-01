@@ -13,6 +13,7 @@ public class OBJ_ShieldOne extends Entity {
 		down1 = setup("/objects/shiled",gp.tileSize,gp.tileSize);
 		defenseValue = 1;
 		description = "[" + name + "]\nHonestamente es mas de adorno...";
+		price = 50;
 	}
 
 }

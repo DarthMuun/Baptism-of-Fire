@@ -13,8 +13,9 @@ public class OBJ_PorraOne extends Entity{
 		down1 = setup("/objects/porra",gp.tileSize,gp.tileSize);
 		description = "[" + name + "]\nCool, pero solo hace 1 de daño WTF?";
 		attackValue = 1;
-		attackArea.width = 40;
-		attackArea.height = 40;
+		attackArea.width = 45;
+		attackArea.height = 45;
+		price = 150;
 	}
 
 }

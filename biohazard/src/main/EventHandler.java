@@ -1,237 +1,144 @@
 package main;
 
-import java.awt.Rectangle;
+import entity.Entity;
 
 public class EventHandler {
 	
 	GamePanel gp;
+	EventRect eventRect[][][];
 	
-	Rectangle eventRect;
-	int eventRectDefaultX, eventRectDefaultY;
+	int previousEventX, previousEventY;
+	boolean canTouchEvent = true;
+	int tempMap, tempCol, tempRow;
     
 	public EventHandler(GamePanel gp) {
 		this.gp = gp;
 		
-		eventRect = new Rectangle();
-		eventRect.x = 23;
-		eventRect.y = 23;
-		eventRect.width = 64;
-		eventRect.height = 64;
-		eventRectDefaultX = eventRect.x;
-		eventRectDefaultY = eventRect.y;
+		eventRect = new EventRect[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
+		
+		int map = 0;
+		int col = 0;
+		int row = 0;
+		while (map < gp.maxMap && col < gp.maxWorldCol && row < gp.maxWorldRow) {
+			
+			eventRect[map][col][row] = new EventRect();
+			eventRect[map][col][row].x = 23;
+			eventRect[map][col][row].y = 23;
+			eventRect[map][col][row].width = 64;
+			eventRect[map][col][row].height = 64;
+			eventRect[map][col][row].eventRectDefaultX = eventRect[map][col][row].x;
+			eventRect[map][col][row].eventRectDefaultY = eventRect[map][col][row].y;
+			
+			col++;
+			if (col == gp.maxWorldCol) {
+				col = 0;
+				row++;
+				
+				if (row == gp.maxWorldRow) {
+					row = 0;
+					map++;
+				}
+			}
+		}
 		
 	}	
 	
 	public void checkEvent() {
 		
-		//Teleport "Tuneles"
+		int xDistance = Math.abs(gp.player.worldX - previousEventX);
+		int yDistance = Math.abs(gp.player.worldY - previousEventY);
+		int distance = Math.max(xDistance, yDistance);
+		if (distance > gp.tileSize) {
+			canTouchEvent = true;
+		}
 		
-		//IDA
-		if(hit(38, 79, "right") == true) {teleport(gp.dialogueState);}
-		if(hit(39, 49, "up") == true) {teleport2(gp.dialogueState);}
-		if(hit(77, 46, "down") == true) {teleport3(gp.dialogueState);}
-		if(hit(61, 62, "down") == true) {teleport4(gp.dialogueState);}
-		if(hit(15, 33, "up") == true) {teleport5(gp.dialogueState);}
-		if(hit(77, 26, "up") == true) {teleport11(gp.dialogueState);}
+		if (canTouchEvent == true) {
 		
-		//Retorno
-		if(hit(39, 62, "down") == true) {teleport6(gp.dialogueState);}
-		if(hit(41, 40, "down") == true) {teleport7(gp.dialogueState);}
-		if(hit(61, 49, "up") == true) {teleport8(gp.dialogueState);}
-		if(hit(96, 79, "right") == true) {teleport9(gp.dialogueState);}
-		if(hit(21, 19, "down") == true) {teleport10(gp.dialogueState);}
-		if(hit(72, 19, "down") == true) {teleport12(gp.dialogueState);}
-		
+			//Teleport "Tuneles"
+			
+			//IDA
+			if (hit(0, 38, 79, "right")) { teleport1(0, 39, 62); }
+			else if (hit(0, 39, 49, "up")) { teleport1(0, 41, 40); }
+			else if (hit(0, 77, 46, "down")) { teleport1(0, 61, 49); }
+			else if (hit(0, 61, 62, "down")) { teleport1(0, 96, 79); }
+			else if (hit(0, 15, 33, "up")) { teleport1(0, 21, 19); }
+			else if (hit(0, 77, 26, "up")) { teleport1(0, 72, 19); }
+			
+			//Retorno
+			else if (hit(0, 39, 62, "down")) { teleport2(0, 38, 79); }
+			else if (hit(0, 41, 40, "down")) { teleport2(0, 39, 49); }
+			else if (hit(0, 61, 49, "up")) { teleport2(0, 77, 46); }
+			else if (hit(0, 96, 79, "right")) { teleport2(0, 61, 62); }
+			else if (hit(0, 21, 19, "down")) { teleport2(0, 15, 33); }
+			else if (hit(0, 72, 19, "down")) { teleport2(0, 77, 26); }
+			
+			//NEW MAP
+			else if (hit(0, 41, 14, "up")) { teleport1(1, 24, 81); }
+			else if (hit(1, 24, 81, "down")) { teleport2(0, 41, 14); }
+			
+			//MrQS
+			else if (hit(0, 24, 67, "up")) { speak(gp.npc[1][0]); }
+		}		
 
 	}
 	
-	public boolean hit(int eventCol, int eventRow, String reqDirection) {
+	public boolean hit(int map, int col, int row, String reqDirection) {
 		
 		boolean hit = false;
 		
-		gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;
-		gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
-		eventRect.x = eventCol*gp.tileSize + eventRect.x;
-		eventRect.y = eventRow*gp.tileSize + eventRect.y;
-		
-		if(gp.player.solidArea.intersects(eventRect)) {
-			if(gp.player.direction.contentEquals(reqDirection) || reqDirection.contentEquals("any")) {
-				hit = true;
+		if (map == gp.currentMap) {
+			gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;
+			gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
+			eventRect[map][col][row].x = col * gp.tileSize + eventRect[map][col][row].x;
+			eventRect[map][col][row].y = row * gp.tileSize + eventRect[map][col][row].y;
+			
+			if (gp.player.solidArea.intersects(eventRect[map][col][row]) && !eventRect[map][col][row].eventDone) {
+				if (gp.player.direction.equals(reqDirection) || reqDirection.equals("any")) {
+					hit = true;
+					
+					previousEventX = gp.player.worldX;
+					previousEventY = gp.player.worldY;
+				}
 			}
+			
+			gp.player.solidArea.x = gp.player.solidAreaDefaultX;
+			gp.player.solidArea.y = gp.player.solidAreaDefaultY;
+			eventRect[map][col][row].x = eventRect[map][col][row].eventRectDefaultX;
+			eventRect[map][col][row].y = eventRect[map][col][row].eventRectDefaultY;
 		}
-		
-		gp.player.solidArea.x = gp.player.solidAreaDefaultX;
-		gp.player.solidArea.y = gp.player.solidAreaDefaultY;
-		eventRect.x = eventRectDefaultX;
-		eventRect.y = eventRectDefaultY;
 		
 		return hit;
 	}
-
-	public void teleport(int gameState) {
+	
+	public void teleport1(int map, int col,int row) {
 		
-		if (gp.keyH.interactPressed == true) {
+		gp.gameState = gp.transitionState;
+		tempMap = map;
+		tempCol = col;
+		tempRow = row;
+		canTouchEvent = false;
 		gp.playSE(18);
-		gp.gameState = gameState;
-		gp.ui.currentDialogue = "Area A2";
-		gp.player.worldX = gp.tileSize*39;
-		gp.player.worldY = gp.tileSize*62;
+		
+	}
+	
+	public void teleport2(int map,int col,int row) {
+		
+		gp.gameState = gp.transitionState;
+		tempMap = map;
+		tempCol = col;
+		tempRow = row;
+		canTouchEvent = false;
+		gp.playSE(19);
+		
+	}
+	
+	public void speak(Entity entity) {
+		
+		if (gp.keyH.enterPressed) {
+			gp.gameState = gp.dialogueState;
+			gp.player.attackCanceled = true;
+			entity.speak();
 		}
-		gp.keyH.interactPressed = false;
-		
 	}
 	
-	public void teleport2(int gameState) {
-		
-	    if (gp.keyH.interactPressed == true) {
-	    	gp.playSE(18);
-	        gp.gameState = gameState;
-	        gp.ui.currentDialogue = "Area A3";
-	        gp.player.worldX = gp.tileSize * 41; 
-	        gp.player.worldY = gp.tileSize * 40; 
-	    }
-	    gp.keyH.interactPressed = false;
-	}   
-    
-	public void teleport3(int gameState) {
-		
-	    if (gp.keyH.interactPressed == true) {
-	    	gp.playSE(18);
-	        gp.gameState = gameState;
-	        gp.ui.currentDialogue = "Area A4";
-	        gp.player.worldX = gp.tileSize * 61; 
-	        gp.player.worldY = gp.tileSize * 49;     
-	    }
-	    gp.keyH.interactPressed = false;
-    }
-	
-	public void teleport4(int gameState) {
-		
-	    if (gp.keyH.interactPressed == true) {
-	    	gp.playSE(18);
-	        gp.gameState = gameState;
-	        gp.ui.currentDialogue = "Area A5";
-	        gp.player.worldX = gp.tileSize * 96; 
-	        gp.player.worldY = gp.tileSize * 79;        
-	    }
-	    gp.keyH.interactPressed = false;
-    }
-	
-	public void teleport5(int gameState) {
-		
-	    if (gp.keyH.interactPressed == true) {
-	    	gp.playSE(18);
-	        gp.gameState = gameState;
-	        gp.ui.currentDialogue = "Area A7";
-	        gp.player.worldX = gp.tileSize * 21; 
-	        gp.player.worldY = gp.tileSize * 19;
-	    }
-	    gp.keyH.interactPressed = false;
-    }
-	
-	
-	public void teleport6(int gameState) {
-		
-	    if (gp.keyH.interactPressed == true) {
-	    	gp.playSE(19);
-	        gp.gameState = gameState;
-	        gp.ui.currentDialogue = "Area A1";
-	        gp.player.worldX = gp.tileSize * 38; 
-	        gp.player.worldY = gp.tileSize * 79;   
-	    }
-	    gp.keyH.interactPressed = false;
-    }
-	
-	public void teleport7(int gameState) {
-		
-	    if (gp.keyH.interactPressed == true) {
-	    	gp.playSE(19);
-	        gp.gameState = gameState;
-	        gp.ui.currentDialogue = "Area A2";
-	        gp.player.worldX = gp.tileSize * 39;
-	        gp.player.worldY = gp.tileSize * 49;  
-	    }
-	    gp.keyH.interactPressed = false;
-	}
-	    
-	public void teleport8(int gameState) {
-		
-	    if (gp.keyH.interactPressed == true) {
-	    	gp.playSE(19);
-	        gp.gameState = gameState;
-	        gp.ui.currentDialogue = "Area A3";
-	        gp.player.worldX = gp.tileSize * 77;
-	        gp.player.worldY = gp.tileSize * 46;  
-	    }
-	    gp.keyH.interactPressed = false;
-    }
-	
-	public void teleport9(int gameState) {
-		
-	    if (gp.keyH.interactPressed == true) {
-	    	gp.playSE(19);
-	        gp.gameState = gameState;
-	        gp.ui.currentDialogue = "Area A4";
-	        gp.player.worldX = gp.tileSize * 61;
-	        gp.player.worldY = gp.tileSize * 62;
-	    }
-	    gp.keyH.interactPressed = false;
-    }
-	
-	public void teleport10(int gameState) {
-		
-	    if (gp.keyH.interactPressed == true) {
-	    	gp.playSE(19);
-	        gp.gameState = gameState;
-	        gp.ui.currentDialogue = "Area A3";
-	        gp.player.worldX = gp.tileSize * 15; 
-	        gp.player.worldY = gp.tileSize * 33;	        
-	    }
-	    gp.keyH.interactPressed = false;
-    }
-	
-	public void teleport11(int gameState) {
-		
-	    if (gp.keyH.interactPressed == true) {
-	    	gp.playSE(18);
-	        gp.gameState = gameState;
-	        gp.ui.currentDialogue = "Area A6";
-	        gp.player.worldX = gp.tileSize * 72; 
-	        gp.player.worldY = gp.tileSize * 19;        
-	    }
-	    gp.keyH.interactPressed = false;
-    }
-	
-	public void teleport12(int gameState) {
-		
-	    if (gp.keyH.interactPressed == true) {
-	    	gp.playSE(19);
-	        gp.gameState = gameState;
-	        gp.ui.currentDialogue = "Area A3";
-	        gp.player.worldX = gp.tileSize * 77; 
-	        gp.player.worldY = gp.tileSize * 26; 
-	    }
-	    gp.keyH.interactPressed = false;
-    }
-	public void damagePit(int gameState) {
-		
-		gp.gameState = gameState;
-		gp.playSE(6);
-		gp.ui.currentDialogue = "Duele no?";
-		gp.player.life -= 1;
-	}
-	
-	public void healingBlock(int gameState) {
-		
-		//if(gp.keyH.healPressed == true) {
-			//gp.gameState = gameState;
-			//gp.player.attackCanceled = true;
-			//gp.playSE(3);
-			//gp.ui.currentDialogue = "Estas curado!";
-			//gp.player.life = gp.player.maxLife;
-			//gp.aSetter.setEnemies();
-		//}
-		//gp.keyH.healPressed = false;
-		
-	}
 }

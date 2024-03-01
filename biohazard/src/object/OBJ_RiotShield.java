@@ -12,6 +12,7 @@ public class OBJ_RiotShield extends Entity{
 		name = "Escudo Antidisturbios";
 		down1 = setup("/objects/riotshield",gp.tileSize,gp.tileSize);
 		defenseValue = 3;
-		description = "[" + name + "]\nEsto se ponda bueno";
+		description = "[" + name + "]\nEsto se pondra bueno";
+		price = 200;
 	}
 }
