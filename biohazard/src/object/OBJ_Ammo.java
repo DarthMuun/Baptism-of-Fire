@@ -19,11 +19,12 @@ public class OBJ_Ammo extends Entity{
 		image2 = setup("/objects/empty",gp.tileSize,gp.tileSize);	
 	}
 	
-	public void use (Entity entity) {
+	public boolean use (Entity entity) {
 		
 		gp.playSE(2);
 		gp.ui.addMessage("Has Recuperado +" + value + " misil");
 		entity.ammo += value;
+		return true ;
 	}
 
 }

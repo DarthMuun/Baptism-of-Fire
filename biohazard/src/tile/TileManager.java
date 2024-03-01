@@ -142,5 +142,11 @@ public class TileManager {
 		}
 		
 	}
+	public Tile[] getTiles() {
+        return tile;
+    }
 
+	public int[][][] getMapTileNum() {
+        return mapTileNum;
+    }
 }

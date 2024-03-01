@@ -13,48 +13,49 @@ import object.OBJ_PorraOne;
 import object.OBJ_ShieldOne;
 
 public class Player extends Entity {
-	
-	KeyHandler keyH;
-	public final int screenX;
-	public final int screenY;
-	int standCounter =0;
-	public boolean attackCanceled = false;
 
-	public Player(GamePanel gp, KeyHandler keyH) {
-				
-		super(gp);
-		this.keyH = keyH;
-		this.gp = gp;
-		
-		screenX = gp.screenWidth/2 - (gp.tileSize/2);
-		screenY = gp.screenHeight/2 - (gp.tileSize/2);
-		
-		//Solid Area
-		solidArea = new Rectangle();
-		solidArea.x = 8;
-		solidArea.y = 16;
-		solidAreaDefaultX = solidArea.x;
-		solidAreaDefaultY = solidArea.y;
-		solidArea.width = 32;
-		solidArea.height = 32;
-		
-		setDefaultValues();
-		getPlayerImage();
-		getPlayerAttackImage();
-		setItems();
-	}
+    KeyHandler keyH;
+    public final int screenX;
+    public final int screenY;
+    int standCounter = 0;
+    public boolean attackCanceled = false;
+
+    public Player(GamePanel gp, KeyHandler keyH) {
+
+        super(gp);
+        this.keyH = keyH;
+        this.gp = gp;
+
+        screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
+        screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
+
+        // Solid Area
+        solidArea = new Rectangle();
+        solidArea.x = 8;
+        solidArea.y = 16;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
+        solidArea.width = 32;
+        solidArea.height = 32;
+
+        setDefaultValues();
+        getPlayerImage();
+        getPlayerAttackImage();
+        setItems();
+    }
 	
 	public void setDefaultValues() {
 	
 		//Spawn
 		worldX = gp.tileSize * 24;
 		worldY = gp.tileSize * 79;
-		speed = 2;
+		defaultSpeed = 4;
+		speed = defaultSpeed;
 		direction = "up";
 		
 		//Status
 		level = 1;
-		maxLife = 4;
+		maxLife = 6;
 		life = maxLife;
 		maxAmmo = 4;
 		ammo = maxAmmo;
@@ -62,7 +63,7 @@ public class Player extends Entity {
 		dexterity = 1; // More dexterity = less damage recieves
 		exp = 0;
 		nextLevelExp = 100;
-		parts = 0;
+		parts = 1000;
 		currentWeapon = new OBJ_PorraOne(gp);
 		currentShield = new OBJ_ShieldOne(gp);
 		projectile = new OBJ_Missile(gp);
@@ -266,7 +267,7 @@ public class Player extends Entity {
 			gp.playSE(12);
 		}
 	}
-	
+
 	public void attacking() {
 		
 		spriteCounter++;
@@ -297,7 +298,7 @@ public class Player extends Entity {
 			
 			//Check Monster collision with the updated worldX, worldY and solid area
 			int enemiesIndex = gp.cChecker.checkEntity(this, gp.enemies);
-			damageEnemy(enemiesIndex, attack);
+			damageEnemy(enemiesIndex, attack, currentWeapon.knockBackPower);
 			
 			int iTileIndex = gp.cChecker.checkEntity(this, gp.iTile);
 			damageInteractiveTile(iTileIndex);
@@ -326,6 +327,14 @@ public class Player extends Entity {
 				gp.obj[gp.currentMap][i].use(this);
 				gp.obj[gp.currentMap][i] = null;
 			}
+			//Obstacle
+			else if (gp.obj[gp.currentMap][i].type == type_obstacle) {
+				if(keyH.enterPressed == true) {
+					attackCanceled = true;
+					gp.obj[gp.currentMap][i].interact();
+				}
+			}
+			
 			//Intentory Items
 			else {
 				String text;
@@ -377,31 +386,43 @@ public class Player extends Entity {
 		}
 	}
 	
-	public void damageEnemy(int i, int attack) {
+	public void damageEnemy(int i, int attack, int knockBackPower) {
 		
 		if(i != 999) {
 			if(gp.enemies[gp.currentMap][i].invincible == false) {
+				
 				gp.playSE(5);
+				
+				if(knockBackPower > 0) {
+					knockBack(gp.enemies[gp.currentMap][i], knockBackPower);
+				}
 				
 				int damage = attack - gp.enemies[gp.currentMap][i].defense;
 				if(damage < 0) {
 					damage = 0;
 				}
 				gp.enemies[gp.currentMap][i].life -= damage;
-				gp.ui.addMessage(damage + " Daño Total");
+				gp.ui.addMessage(damage + " Total Damage");
 				
 				gp.enemies[gp.currentMap][i].invincible = true;
 				gp.enemies[gp.currentMap][i].damageReaction();
 				
 				if(gp.enemies[gp.currentMap][i].life <= 0) {
 					gp.enemies[gp.currentMap][i].dying = true;
-					gp.ui.addMessage("Has matado a un " + gp.enemies[gp.currentMap][i].name);
-					gp.ui.addMessage(gp.enemies[gp.currentMap][i].exp + " XP Obtenida ");
+					gp.ui.addMessage("You have kill " + gp.enemies[gp.currentMap][i].name);
+					gp.ui.addMessage(gp.enemies[gp.currentMap][i].exp + " XP Earn ");
 					exp += gp.enemies[gp.currentMap][i].exp;
 					checkLevelUp();
 				}
 			}
 		}
+	}
+	
+	public void knockBack(Entity entity, int knockBackPower) {
+		
+		entity.direction = direction;
+		entity.speed += knockBackPower;
+		entity.knockBack = true;
 	}
 	
 	public void damageInteractiveTile(int i) {
@@ -463,8 +484,10 @@ public class Player extends Entity {
 			}
 			if(selectedItem.type == type_consumable ) {
 				
-				selectedItem.use(this);
-				inventory.remove(intemIndex);
+				if(selectedItem.use(this) == true);{
+					inventory.remove(intemIndex);
+				}
+				
 			}
 		}
 	}

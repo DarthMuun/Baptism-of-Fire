@@ -81,7 +81,7 @@ public class EventHandler {
 		}		
 
 	}
-	
+
 	public boolean hit(int map, int col, int row, String reqDirection) {
 		
 		boolean hit = false;

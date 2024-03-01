@@ -15,6 +15,7 @@ public class OBJ_wrench extends Entity{
 		attackValue = 2;
 		attackArea.width = 32;
 		attackArea.height = 32;
+		knockBackPower = 5;
 	}
 
 }

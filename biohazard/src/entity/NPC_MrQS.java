@@ -52,7 +52,6 @@ public class NPC_MrQS extends Entity {
 		inventory.add(new OBJ_PorraOne (gp));
 		inventory.add(new OBJ_ShieldOne(gp));
 		inventory.add(new OBJ_RiotShield (gp));
-		inventory.add(new OBJ_Key (gp));
 
 	}
 	

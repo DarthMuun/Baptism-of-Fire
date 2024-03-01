@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="javax.swing.SwingUtilities"/>
     <fullyQualifiedTypeName name="java.awt.event.WindowAdapter"/>
     <fullyQualifiedTypeName name="java.awt.event.WindowEvent"/>
     <fullyQualifiedTypeName name="java.lang.ModuleLayer.Controller"/>
     <fullyQualifiedTypeName name="java.awt.Image"/>
-    <fullyQualifiedTypeName name="object.OBJ_Chest"/>
     <fullyQualifiedTypeName name="object.OBJ_Door"/>
     <fullyQualifiedTypeName name="javax.sound.sampled.Clip"/>
     <fullyQualifiedTypeName name="java.net.URL"/>
@@ -27,23 +25,13 @@
     <fullyQualifiedTypeName name="entity.NPC_Prototype"/>
     <fullyQualifiedTypeName name="java.awt.BasicStroke"/>
     <fullyQualifiedTypeName name="entity.Player"/>
-    <fullyQualifiedTypeName name="tile.TileManager"/>
-    <fullyQualifiedTypeName name="java.util.ArrayList"/>
-    <fullyQualifiedTypeName name="object.OBJ_Key"/>
-    <fullyQualifiedTypeName name="object.OBJ_ItemOne"/>
     <fullyQualifiedTypeName name="object.OBJ_wrench"/>
-    <fullyQualifiedTypeName name="object.OBJ_RiotShield"/>
-    <fullyQualifiedTypeName name="object.OBJ_HealthElix"/>
     <fullyQualifiedTypeName name="entity.Projectile"/>
     <fullyQualifiedTypeName name="object.OBJ_Blagh"/>
-    <fullyQualifiedTypeName name="object.OBJ_Parts"/>
     <fullyQualifiedTypeName name="object.OBJ_Heart"/>
     <fullyQualifiedTypeName name="object.OBJ_Ammo"/>
-    <fullyQualifiedTypeName name="entity.Entity"/>
     <fullyQualifiedTypeName name="tiles_interactive.InteractiveTile"/>
     <fullyQualifiedTypeName name="tiles_interactive.IT_SoftWall"/>
-    <fullyQualifiedTypeName name="main.GamePanel"/>
-    <fullyQualifiedTypeName name="java.awt.Color"/>
     <fullyQualifiedTypeName name="java.awt.Graphics"/>
     <fullyQualifiedTypeName name="java.awt.Graphics2D"/>
     <fullyQualifiedTypeName name="java.awt.image.BufferedImage"/>
@@ -57,4 +45,19 @@
     <fullyQualifiedTypeName name="java.io.BufferedReader"/>
     <fullyQualifiedTypeName name="java.io.FileReader"/>
     <fullyQualifiedTypeName name="java.awt.Rectangle"/>
+    <fullyQualifiedTypeName name="object.OBJ_HealthElix"/>
+    <fullyQualifiedTypeName name="object.OBJ_ItemOne"/>
+    <fullyQualifiedTypeName name="object.OBJ_PorraOne"/>
+    <fullyQualifiedTypeName name="object.OBJ_ShieldOne"/>
+    <fullyQualifiedTypeName name="object.OBJ_RiotShield"/>
+    <fullyQualifiedTypeName name="object.OBJ_Key"/>
+    <fullyQualifiedTypeName name="entity.NPC_MrQS"/>
+    <fullyQualifiedTypeName name="object.OBJ_Parts"/>
+    <fullyQualifiedTypeName name="main.GamePanel"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="entity.Entity"/>
+    <fullyQualifiedTypeName name="ai.PathFinder"/>
+    <fullyQualifiedTypeName name="java.awt.Color"/>
+    <fullyQualifiedTypeName name="tile.TileManager"/>
+    <fullyQualifiedTypeName name="object.OBJ_Chest"/>
 </qualifiedTypeNameHistroy>

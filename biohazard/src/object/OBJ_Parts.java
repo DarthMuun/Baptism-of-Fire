@@ -16,10 +16,11 @@ public class OBJ_Parts extends Entity{
 		value = 3;
 		down1 = setup("/objects/parts",gp.tileSize,gp.tileSize);
 	}
-	public void use (Entity entity) {
+	public boolean use (Entity entity) {
 		
 		gp.playSE(20);
 		gp.ui.addMessage("Has Recogido " + value + " partes");
 		gp.player.parts += value;
+		return true;
 	}
 }

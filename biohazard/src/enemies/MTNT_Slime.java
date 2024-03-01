@@ -20,7 +20,8 @@ public class MTNT_Slime extends Entity{
 		
 		type = type_enemy;
 		name = "Baby Gloop";
-		speed = 1;
+		defaultSpeed = 1;
+		speed = defaultSpeed;
 		maxLife = 6;
 		life = maxLife;
 		attack = 5;
@@ -100,7 +101,7 @@ public class MTNT_Slime extends Entity{
 				}
 				
 				actionLockCounter = 0;
-				
+			
 			}
 		}
 	}

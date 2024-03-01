@@ -48,7 +48,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public boolean fullScreenOn = false;
 	
 	//Frame Per Second Setter
-	int FPS = 120;
+	int FPS = 60;
 	
 	//System
 	public TileManager tileM = new TileManager(this);

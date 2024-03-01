@@ -21,12 +21,13 @@ public class OBJ_HealthElix extends Entity{
 
 	}
 	
-	public void use (Entity entity) {
+	public boolean use (Entity entity) {
 		
 		gp.gameState = gp.dialogueState;
 		gp.ui.currentDialogue = "Has tomado el " + name + "\n" + "Has recuperado " + value + " de vida.";
 		entity.life += value;
 		gp.playSE(15);
+		return true;
 	}
 
 }

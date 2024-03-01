@@ -18,10 +18,11 @@ public class OBJ_Missile extends Projectile{
 		this.gp = gp;
 		
 		name = "Misil";
-		speed = 7;
+		speed = 10;
 		maxLife = 100;
 		life = maxLife;
 		attack = 5;
+		knockBackPower = 10;
 		useCost = 1;
 		alive = false;
 		getImage();

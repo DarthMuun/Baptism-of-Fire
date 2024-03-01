@@ -4,6 +4,7 @@ import enemies.MTNT_Slime;
 import entity.NPC_MrQS;
 import entity.NPC_Prototype;
 import object.OBJ_Ammo;
+import object.OBJ_Chest;
 import object.OBJ_Door;
 import object.OBJ_HealthElix;
 import object.OBJ_ItemOne;
@@ -20,42 +21,26 @@ public class AssetSetter {
     public AssetSetter(GamePanel gp) {
         this.gp = gp;
     }
-    
+   
     public void setObject() {
     	
     	int mapNum = 0;
     	int i = 0;
-    	gp.obj[mapNum][i] = new OBJ_Key(gp);
-    	gp.obj[mapNum][i].worldX = gp.tileSize*67;
-    	gp.obj[mapNum][i].worldY = gp.tileSize*79;
-    	i++;
     	gp.obj[mapNum][i] = new OBJ_wrench(gp);
     	gp.obj[mapNum][i].worldX = gp.tileSize*24;
     	gp.obj[mapNum][i].worldY = gp.tileSize*68;
     	i++;
-    	gp.obj[mapNum][i] = new OBJ_RiotShield(gp);
-    	gp.obj[mapNum][i].worldX = gp.tileSize*70;
-    	gp.obj[mapNum][i].worldY = gp.tileSize*13;
+    	gp.obj[mapNum][i] = new OBJ_Door(gp);
+    	gp.obj[mapNum][i].worldX = gp.tileSize*41;
+    	gp.obj[mapNum][i].worldY = gp.tileSize*32;
     	i++;
-    	gp.obj[mapNum][i] = new OBJ_HealthElix(gp);
-    	gp.obj[mapNum][i].worldX = gp.tileSize*24;
-    	gp.obj[mapNum][i].worldY = gp.tileSize*77;
-    	i++;
-    	gp.obj[mapNum][i] = new OBJ_HealthElix(gp);
-    	gp.obj[mapNum][i].worldX = gp.tileSize*53;
-    	gp.obj[mapNum][i].worldY = gp.tileSize*34;
-    	i++;
-    	gp.obj[mapNum][i] = new OBJ_Parts(gp);
-    	gp.obj[mapNum][i].worldX = gp.tileSize*95;
-    	gp.obj[mapNum][i].worldY = gp.tileSize*36;
-    	i++;
-    	gp.obj[mapNum][i] = new OBJ_Parts(gp);
-    	gp.obj[mapNum][i].worldX = gp.tileSize*24;
-    	gp.obj[mapNum][i].worldY = gp.tileSize*81;
-    	i++;
-    	gp.obj[mapNum][i] = new OBJ_Ammo(gp);
-    	gp.obj[mapNum][i].worldX = gp.tileSize*2;
+    	gp.obj[mapNum][i] = new OBJ_Key(gp);
+    	gp.obj[mapNum][i].worldX = gp.tileSize*67;
     	gp.obj[mapNum][i].worldY = gp.tileSize*79;
+    	i++;
+    	gp.obj[mapNum][i] = new OBJ_Chest(gp, new OBJ_Key(gp));
+    	gp.obj[mapNum][i].worldX = gp.tileSize*22;
+    	gp.obj[mapNum][i].worldY = gp.tileSize*77;
     	i++;
     }
     public void setNPC() {
@@ -64,7 +49,7 @@ public class AssetSetter {
     	int mapNum = 0;
     	int i = 0;
     	gp.npc[mapNum][i] = new NPC_Prototype(gp);
-    	gp.npc[mapNum][i].worldX = gp.tileSize*24;
+    	gp.npc[mapNum][i].worldX = gp.tileSize*20;
     	gp.npc[mapNum][i].worldY = gp.tileSize*78;
     	i++;
     	
@@ -194,12 +179,9 @@ public class AssetSetter {
     	
     	int mapNum = 0;
     	int i = 0;
-    	gp.iTile[mapNum][i] = new IT_SoftWall(gp,65,35);i++;
-    	gp.iTile[mapNum][i] = new IT_SoftWall(gp,65,36);i++;
-    	gp.iTile[mapNum][i] = new IT_SoftWall(gp,65,37);i++;
-    	gp.iTile[mapNum][i] = new IT_SoftWall(gp,60,55);i++;
-    	gp.iTile[mapNum][i] = new IT_SoftWall(gp,61,55);i++;
-    	gp.iTile[mapNum][i] = new IT_SoftWall(gp,62,55);i++;
+    	gp.iTile[mapNum][i] = new IT_SoftWall(gp,45,35);i++;
+    	gp.iTile[mapNum][i] = new IT_SoftWall(gp,45,36);i++;
+    	gp.iTile[mapNum][i] = new IT_SoftWall(gp,45,37);i++;
     	i++;
     }
 }

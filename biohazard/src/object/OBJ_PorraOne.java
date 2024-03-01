@@ -16,6 +16,7 @@ public class OBJ_PorraOne extends Entity{
 		attackArea.width = 45;
 		attackArea.height = 45;
 		price = 150;
+		knockBackPower = 10;
 	}
 
 }

@@ -82,7 +82,7 @@ public class PathFinder {
 			//Solid Node
 			
 			// Check Tiles
-			int tileNum = gp.tileM.mapTileNum(gp.currentMap)[col][row];
+			int tileNum = gp.tileM.getMapTileNum()[gp.currentMap][col][row];
 			if (gp.tileM.tile[tileNum].collision == true) {
 			    node[col][row].solid = true;
 			}
@@ -165,7 +165,7 @@ public class PathFinder {
             		}
             	}
             }
-            
+           
             if(openList.size() == 0) {
             	break;
             }
