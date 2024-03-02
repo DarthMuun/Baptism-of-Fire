@@ -20,8 +20,7 @@ public class MTNT_Slime extends Entity{
 		
 		type = type_enemy;
 		name = "Baby Gloop";
-		defaultSpeed = 1;
-		speed = defaultSpeed;
+		speed = 1;
 		maxLife = 6;
 		life = maxLife;
 		attack = 5;
@@ -71,13 +70,28 @@ public class MTNT_Slime extends Entity{
 	
 	public void setAction() {
 		
+		int xDistance = Math.abs(worldX - gp.player.worldX);
+		int yDistance = Math.abs(worldY - gp.player.worldY);
+		int tileDistance = (xDistance + yDistance)/gp.tileSize;
+		
 		if(onPath == true){
+			
+			if(tileDistance >20){
+				onPath = false;
+			}
 			
 			int goalCol = (gp.player.worldX + gp.player.solidArea.x)/gp.tileSize;
 			int goalRow = (gp.player.worldY + gp.player.solidArea.y)/gp.tileSize;
 			
 			searchPath(goalCol,goalRow);
 			
+			int i = new Random().nextInt(100)+1;
+			if(i > 99 && projectile.alive == false && shotAvailableCounter == 30) {
+
+				projectile.set(worldX, worldY, direction, true, this);
+				gp.projectileList.add(projectile);
+				shotAvailableCounter = 0;
+			}
 		}
 		else {
 			actionLockCounter ++;
@@ -101,10 +115,11 @@ public class MTNT_Slime extends Entity{
 				}
 				
 				actionLockCounter = 0;
-			
+				
 			}
 		}
 	}
+
 	
 	public void damageAction() {
 		

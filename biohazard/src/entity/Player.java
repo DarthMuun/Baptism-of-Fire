@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import main.GamePanel;
 import main.KeyHandler;
+import object.OBJ_Lantern;
 import object.OBJ_Missile;
 import object.OBJ_PorraOne;
 import object.OBJ_ShieldOne;
@@ -19,6 +20,7 @@ public class Player extends Entity {
     public final int screenY;
     int standCounter = 0;
     public boolean attackCanceled = false;
+    public boolean lightUpdated = false;
 
     public Player(GamePanel gp, KeyHandler keyH) {
 
@@ -49,7 +51,7 @@ public class Player extends Entity {
 		//Spawn
 		worldX = gp.tileSize * 24;
 		worldY = gp.tileSize * 79;
-		defaultSpeed = 4;
+		defaultSpeed = 3;
 		speed = defaultSpeed;
 		direction = "up";
 		
@@ -57,13 +59,13 @@ public class Player extends Entity {
 		level = 1;
 		maxLife = 6;
 		life = maxLife;
-		maxAmmo = 4;
+		maxAmmo = 3;
 		ammo = maxAmmo;
 		strength = 1; //More strength = more damage
 		dexterity = 1; // More dexterity = less damage recieves
 		exp = 0;
 		nextLevelExp = 100;
-		parts = 1000;
+		parts = 0;
 		currentWeapon = new OBJ_PorraOne(gp);
 		currentShield = new OBJ_ShieldOne(gp);
 		projectile = new OBJ_Missile(gp);
@@ -339,14 +341,12 @@ public class Player extends Entity {
 			else {
 				String text;
 				
-				if(inventory.size() != maxInventorySize) {
-					
-					inventory.add(gp.obj[gp.currentMap][i]);
+				if(canObtainItem(gp.obj[gp.currentMap][i]) == true) {
 					gp.playSE(3);
-					text = "Has recogido " + gp.obj[gp.currentMap][i].name;
+					text = "Got a " + gp.obj[gp.currentMap][i].name;
 				}
 				else {
-					text = "No puedes llevar mas de 2";
+					text = "You cannot carry any more";
 				}
 				gp.ui.addMessage(text);
 				gp.obj[gp.currentMap][i] = null;
@@ -482,14 +482,71 @@ public class Player extends Entity {
 				currentShield = selectedItem;
 				defense = getDefense();
 			}
+			if(selectedItem.type == type_light) {
+				
+				if(currentLight == selectedItem) {
+					currentLight = null;
+				}
+				else {
+					currentLight = selectedItem;
+				}
+				lightUpdated = true;
+				
+			}
 			if(selectedItem.type == type_consumable ) {
 				
 				if(selectedItem.use(this) == true);{
-					inventory.remove(intemIndex);
+					if(selectedItem.amount > 1) {
+						selectedItem.amount --;
+					}
+					else {
+						inventory.remove(intemIndex);
+					}
 				}
 				
 			}
 		}
+	}
+	
+	public int searchItemInInventory(String itemName) {
+		
+		int itemIndex = 999;
+		
+		for(int i = 0; i < inventory.size(); i ++) {
+			if(inventory.get(i).name.equals(itemName)) {
+				itemIndex = i;
+				break;
+			}
+		}
+		return itemIndex;
+	}
+	
+	public boolean canObtainItem(Entity item) {
+		
+		boolean canObtain = false;
+		
+		if(item.stackable == true) {
+			
+			int index = searchItemInInventory(item.name);
+			
+			if(index != 999) {
+				inventory.get(index).amount++;
+				canObtain = true;
+			}
+			else {
+				if(inventory.size() != maxInventorySize) {
+					inventory.add(item);
+					canObtain = true;
+				}
+			}
+		}
+		else {
+			if(inventory.size() != maxInventorySize) {
+				inventory.add(item);
+				canObtain = true;
+			}
+		}
+		return canObtain;
 	}
 	
 	public void draw(Graphics2D g2) {

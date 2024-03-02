@@ -20,7 +20,7 @@ public class UI {
 
     GamePanel gp;
     Graphics2D g2;
-    Font mp16reg;
+    public Font mp16reg;
     BufferedImage heart_full, heart_half, heart_blank, full, empty, part;
     public boolean messageOn = false;
     ArrayList<String> message = new ArrayList<>();
@@ -207,7 +207,7 @@ public class UI {
         	
         	//Title Name
         	g2.setFont(g2.getFont().deriveFont(Font.BOLD,150F));
-        	String text = "Jaeger Demo";
+        	String text = "Jaeger";
         	int x = getXforCenteredText(text);
         	int y = gp.tileSize*4;    	
         	
@@ -411,15 +411,31 @@ public class UI {
     	//Draw Player Items
     	for(int i = 0; i < entity.inventory.size(); i++) {
     		
-    		//Equi Cursor
+    		//Equip Cursor
     		if(entity.inventory.get(i) == entity.currentWeapon ||
-    				entity.inventory.get(i) == entity.currentShield) {
+    				entity.inventory.get(i) == entity.currentShield ||
+    				entity.inventory.get(i) == entity.currentLight) {
     			
     			g2.setColor(new Color(240,190,90));
     			g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
     		}
     		
     		g2.drawImage(entity.inventory.get(i).down1, slotX, slotY, null);
+    		
+    		//Amount
+    		if(entity == gp.player && entity.inventory.get(i).amount > 1) {
+    			
+    			g2.setFont(g2.getFont().deriveFont(32f));
+    			int amountX;
+    			int amountY;
+    			
+    			String s = "" + entity.inventory.get(i).amount;
+    			amountX = getXforAlignToRightText(s, slotX + 44);
+    			amountY = slotY + gp.tileSize;
+    			
+    			g2.setColor(Color.white);
+    			g2.drawString(s, amountX-3, amountY-3);
+    		}
     		
     		slotX += gp.tileSize;
     		
@@ -841,17 +857,18 @@ public class UI {
     			if(npc.inventory.get(itemIndex).price>gp.player.parts) {
     				subState = 0;
     				gp.gameState = gp.dialogueState;
-    				currentDialogue = "Nop, I need more parts for that homie";
+    				currentDialogue = "Nop, I need more parts \nfor that homie";
     				drawDialogueScreen();
     			}
-    			else if (gp.player.inventory.size() == gp.player.maxInventorySize) {
-    				subState = 0;
-    				gp.gameState = gp.dialogueState;
-    				currentDialogue = "Thats it! I dont have more items";
-    			}
     			else {
-    				gp.player.parts -= npc.inventory.get(itemIndex).price;
-    				gp.player.inventory.add(npc.inventory.get(itemIndex));
+    				if(gp.player.canObtainItem(npc.inventory.get(itemIndex)) == true) {
+    					gp.player.parts -= npc.inventory.get(itemIndex).price;
+    				}
+    				else {
+    					subState = 0;
+    					gp.gameState = gp.dialogueState;
+    					currentDialogue = "You cannot carry any more";
+    				}
     			}
     		}
     	}
@@ -906,10 +923,15 @@ public class UI {
             		commandNum = 0;
             		subState = 0;
             		gp.gameState = gp.dialogueState;
-            		currentDialogue = "Dont be an Asshole dude, How you're going to survive?";
+            		currentDialogue = "Dont be an Asshole dude, How \nyou're going to survive?";
             	}
             	else {
-            		gp.player.inventory.remove(itemIndex);
+            		if(gp.player.inventory.get(itemIndex).amount > 1) {
+            			gp.player.inventory.get(itemIndex).amount--;
+            		}
+                	else {
+                		gp.player.inventory.remove(itemIndex);
+                	}
             		gp.player.parts += price;
             	}
             }

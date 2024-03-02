@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import main.GamePanel;
@@ -66,6 +67,7 @@ public class Entity {
 	public int parts;
 	public Entity currentWeapon;
 	public Entity currentShield;
+	public Entity currentLight;
 	public Projectile projectile;
 	
 	//Item Attributes
@@ -78,6 +80,9 @@ public class Entity {
 	public int useCost;
 	public int price;
 	public int knockBackPower = 0;
+	public boolean stackable = false;
+	public int amount = 1;
+	public int lightRadius;
 	
 	//Type
 	public int type; // 0 = player, 1 = npc, 2 = monster
@@ -90,6 +95,7 @@ public class Entity {
 	public final int type_consumable = 6;  
 	public final int type_pickupOnly = 7;
 	public final int type_obstacle = 8;
+	public final int type_light = 9;
 	
 	public Entity(GamePanel gp) {
 		this.gp = gp;
@@ -118,6 +124,30 @@ public class Entity {
 		return (worldY + solidArea.y)/gp.tileSize;
 	}
 	
+	public int getXdistance(Entity target) {
+		int xDistance = Math.abs(worldX - target.worldX);
+		return xDistance;
+	}
+	
+	public int getYdistance(Entity target) {
+		int yDistance = Math.abs(worldY - target.worldY);
+		return yDistance;
+	}
+	
+	public int getTileDistance(Entity target) {
+		int tileDistance = (getXdistance(target) + getYdistance(target));
+		return tileDistance;
+	}
+	
+	public int getGoalCol(Entity target) {
+		int goalCol = (target.worldX + target.solidArea.x)/gp.tileSize;;
+		return goalCol;
+	}
+	
+	public int getGoalRow(Entity target) {
+		int goalRow = (target.worldY + target.solidArea.y)/gp.tileSize;;
+		return goalRow;
+	}
 	public void setAction() {}
 	public void damageReaction() {}
 	public void speak() {
@@ -280,6 +310,71 @@ public class Entity {
 		}
 	}
 
+	public void checkShootorNot(int rate, int shotInverval) {
+		
+		//int i = new Random().nextInt(rate);
+		//if(i == 0 && projectile.alive == false && shotAvailableCounter == shotInverval) {
+			
+			//projectile.set(worldY, worldX, direction, true, this);
+			
+			//Check Vacancy
+			//for(int ii = 0; ii < gp.projectile[1].length;ii++) {
+				///if(gp.projectile[gp.currentMap][ii] == null) {
+					//gp.projectile[gp.currentMap][ii] = projectile;
+					//break;
+				//}
+			//}
+			
+			//shotAvailableCounter = 0;
+		//}
+	}
+	
+	public void checkStartChasingorNot(Entity target, int distance, int rate) {
+		
+		if(getTileDistance(target) < distance) {
+			int i = new Random().nextInt(rate);
+			if(i == 0) {
+				onPath = true;
+			}
+		}
+	}
+	
+	public void checkStopChasingorNot(Entity target, int distance, int rate) {
+		
+		if(getTileDistance(target) > distance) {
+			int i = new Random().nextInt(rate);
+			if(i == 0) {
+				onPath = false;
+			}
+		}
+	}
+	
+	public void getRandomDirection() {
+		
+		actionLockCounter ++;
+		
+		if(actionLockCounter == 120) {
+			
+			Random random = new Random();
+			int i = random.nextInt(100)+1;
+			
+			if(i <= 25) {
+				direction = "up";
+			}
+			if(i > 25 && i <=50) {
+				direction = "down";
+			}
+			if(i > 50 && i <=75) {
+				direction = "left";
+			}
+			if(i > 75 && i <=100) {
+				direction = "right";
+			}
+			
+			actionLockCounter = 0;
+		
+		}
+	}
 	
 	public void damagePlayer(int attack){
 		
@@ -404,14 +499,14 @@ public class Entity {
 	public void searchPath(int goalCol, int goalRow) {
 		
 		int startCol = (worldX + solidArea.x)/gp.tileSize;
-		int startRow = (worldX + solidArea.y)/gp.tileSize;
+		int startRow = (worldY + solidArea.y)/gp.tileSize;
 		
 		gp.pFinder.setNodes(startCol, startRow, goalCol, goalRow, this);
 		
 		if(gp.pFinder.search() == true) {
 			
 			int nextX = gp.pFinder.pathList.get(0).col * gp.tileSize;
-			int nextY = gp.pFinder.pathList.get(0).col * gp.tileSize;
+			int nextY = gp.pFinder.pathList.get(0).row * gp.tileSize;
 			
 			int enLeftX = worldX + solidArea.x;
 			int enRightX = worldX + solidArea.x + solidArea.width;
@@ -458,11 +553,11 @@ public class Entity {
 				}
 			}
 			
-			int nextCol = gp.pFinder.pathList.get(0).col;
-			int nextRow = gp.pFinder.pathList.get(0).row;
-			if(nextCol == goalCol && nextRow == goalRow) {
-				onPath = false;
-			}
+			//int nextCol = gp.pFinder.pathList.get(0).col;
+			//int nextRow = gp.pFinder.pathList.get(0).row;
+			//if(nextCol == goalCol && nextRow == goalRow) {
+				//onPath = false;
+			//}
 		}
 	}
 	

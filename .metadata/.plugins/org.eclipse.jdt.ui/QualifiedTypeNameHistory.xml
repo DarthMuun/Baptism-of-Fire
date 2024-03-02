@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="java.awt.event.WindowAdapter"/>
-    <fullyQualifiedTypeName name="java.awt.event.WindowEvent"/>
-    <fullyQualifiedTypeName name="java.lang.ModuleLayer.Controller"/>
-    <fullyQualifiedTypeName name="java.awt.Image"/>
-    <fullyQualifiedTypeName name="object.OBJ_Door"/>
-    <fullyQualifiedTypeName name="javax.sound.sampled.Clip"/>
-    <fullyQualifiedTypeName name="java.net.URL"/>
-    <fullyQualifiedTypeName name="javax.sound.sampled.AudioSystem"/>
-    <fullyQualifiedTypeName name="javax.sound.sampled.AudioInputStream"/>
-    <fullyQualifiedTypeName name="java.text.DecimalFormat"/>
-    <fullyQualifiedTypeName name="java.util.Random"/>
     <fullyQualifiedTypeName name="object.SuperObject"/>
     <fullyQualifiedTypeName name="java.awt.Dimension"/>
     <fullyQualifiedTypeName name="javax.swing.JFrame"/>
@@ -33,8 +22,6 @@
     <fullyQualifiedTypeName name="tiles_interactive.InteractiveTile"/>
     <fullyQualifiedTypeName name="tiles_interactive.IT_SoftWall"/>
     <fullyQualifiedTypeName name="java.awt.Graphics"/>
-    <fullyQualifiedTypeName name="java.awt.Graphics2D"/>
-    <fullyQualifiedTypeName name="java.awt.image.BufferedImage"/>
     <fullyQualifiedTypeName name="java.awt.GraphicsEnvironment"/>
     <fullyQualifiedTypeName name="java.awt.GraphicsDevice"/>
     <fullyQualifiedTypeName name="javax.sound.sampled.FloatControl"/>
@@ -53,11 +40,24 @@
     <fullyQualifiedTypeName name="object.OBJ_Key"/>
     <fullyQualifiedTypeName name="entity.NPC_MrQS"/>
     <fullyQualifiedTypeName name="object.OBJ_Parts"/>
-    <fullyQualifiedTypeName name="main.GamePanel"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
-    <fullyQualifiedTypeName name="entity.Entity"/>
     <fullyQualifiedTypeName name="ai.PathFinder"/>
-    <fullyQualifiedTypeName name="java.awt.Color"/>
     <fullyQualifiedTypeName name="tile.TileManager"/>
     <fullyQualifiedTypeName name="object.OBJ_Chest"/>
+    <fullyQualifiedTypeName name="java.awt.geom.Rectangle2D.Double"/>
+    <fullyQualifiedTypeName name="java.awt.geom.Rectangle2D"/>
+    <fullyQualifiedTypeName name="java.awt.geom.Ellipse2D.Double"/>
+    <fullyQualifiedTypeName name="java.awt.geom.Ellipse2D"/>
+    <fullyQualifiedTypeName name="java.awt.RadialGradientPaint"/>
+    <fullyQualifiedTypeName name="entity.Entity"/>
+    <fullyQualifiedTypeName name="object.OBJ_Lantern"/>
+    <fullyQualifiedTypeName name="java.awt.image.BufferedImage"/>
+    <fullyQualifiedTypeName name="main.GamePanel"/>
+    <fullyQualifiedTypeName name="java.awt.Graphics2D"/>
+    <fullyQualifiedTypeName name="java.awt.Color"/>
+    <fullyQualifiedTypeName name="java.util.Map"/>
+    <fullyQualifiedTypeName name="tile.Map"/>
+    <fullyQualifiedTypeName name="java.awt.AlphaComposite"/>
+    <fullyQualifiedTypeName name="java.util.Random"/>
+    <fullyQualifiedTypeName name="enviroment.EnviromentManager"/>
 </qualifiedTypeNameHistroy>

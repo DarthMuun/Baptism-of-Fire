@@ -12,10 +12,10 @@ public class OBJ_Blagh extends Projectile {
 		this.gp = gp;
 		
 		name = "Blagh";
-		speed = 8;
+		speed = 10;
 		maxLife = 100;
 		life = maxLife;
-		attack = 5;
+		attack = 10;
 		useCost = 1;
 		alive = false;
 		getImage();

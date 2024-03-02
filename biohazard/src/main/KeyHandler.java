@@ -59,6 +59,10 @@ public class KeyHandler implements KeyListener{
     	else if (gp.gameState == gp.tradeState) {
     		tradeState(code);
     	}
+	    //Map State
+    	else if (gp.gameState == gp.mapState) {
+    		mapState(code);
+    	}
 	}
 	
 	public void titleState (int code) {
@@ -88,6 +92,12 @@ public class KeyHandler implements KeyListener{
 	    	if(gp.ui.commandNum == 2) {
 	    		System.exit(0);
 	    	}
+        	//if(gp.map.miniMapOn == false) {
+        	//	gp.map.miniMapOn = true;
+        	//}
+        	//else {
+        	//	gp.map.miniMapOn = false;
+        	//}
 	    }
 	}
 	public void playState (int code) {
@@ -120,6 +130,9 @@ public class KeyHandler implements KeyListener{
         }
         if (code == KeyEvent.VK_E) {
         	shotKeyPressed = true;
+        }
+        if (code == KeyEvent.VK_V) {
+        	gp.gameState = gp.mapState;
         }
 	    
 
@@ -286,6 +299,14 @@ public class KeyHandler implements KeyListener{
 				gp.ui.subState = 0;
 			}
 		}
+	}
+	
+	public void mapState(int code) {
+		
+		if(code == KeyEvent.VK_V) {
+			gp.gameState = gp.playState;
+		}
+		
 	}
 	public void playerInventory(int code) {
 		

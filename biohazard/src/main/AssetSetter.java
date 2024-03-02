@@ -9,6 +9,7 @@ import object.OBJ_Door;
 import object.OBJ_HealthElix;
 import object.OBJ_ItemOne;
 import object.OBJ_Key;
+import object.OBJ_Lantern;
 import object.OBJ_Parts;
 import object.OBJ_RiotShield;
 import object.OBJ_wrench;
@@ -30,6 +31,11 @@ public class AssetSetter {
     	gp.obj[mapNum][i].worldX = gp.tileSize*24;
     	gp.obj[mapNum][i].worldY = gp.tileSize*68;
     	i++;
+    	gp.obj[mapNum][i] = new OBJ_Lantern(gp);
+    	gp.obj[mapNum][i].worldX = gp.tileSize*22;
+    	gp.obj[mapNum][i].worldY = gp.tileSize*79;
+    	i++;
+    	i++;
     	gp.obj[mapNum][i] = new OBJ_Door(gp);
     	gp.obj[mapNum][i].worldX = gp.tileSize*41;
     	gp.obj[mapNum][i].worldY = gp.tileSize*32;
@@ -37,10 +43,6 @@ public class AssetSetter {
     	gp.obj[mapNum][i] = new OBJ_Key(gp);
     	gp.obj[mapNum][i].worldX = gp.tileSize*67;
     	gp.obj[mapNum][i].worldY = gp.tileSize*79;
-    	i++;
-    	gp.obj[mapNum][i] = new OBJ_Chest(gp, new OBJ_Key(gp));
-    	gp.obj[mapNum][i].worldX = gp.tileSize*22;
-    	gp.obj[mapNum][i].worldY = gp.tileSize*77;
     	i++;
     }
     public void setNPC() {
@@ -172,6 +174,7 @@ public class AssetSetter {
     	gp.enemies[mapNum][i].worldX = gp.tileSize*79;
     	gp.enemies[mapNum][i].worldY = gp.tileSize*78;
     	i++;
+
 
     }
     

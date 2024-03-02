@@ -13,11 +13,12 @@ public class OBJ_HealthElix extends Entity{
 		this.gp = gp;
 		
 		type = type_consumable;
-		name = "Elixir de Curacion";
+		name = "Health Potion";
 		value = 5;
 		down1 = setup("/objects/health",gp.tileSize,gp.tileSize);
-		description = "[Elixir de Curacion]\nEl Nombre lo dice, curate!" + value + ".";
+		description = "[Health Potion]\nEl Nombre lo dice, curate!" + value + ".";
 		price = 100;
+		stackable = true;
 
 	}
 	

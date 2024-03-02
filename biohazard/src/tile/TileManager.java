@@ -35,7 +35,7 @@ public class TileManager {
 	public void getTileImage() {
 		
 		// Level 0 Demo
-		setup(0, "wall", true);
+		setup(0, "nothing", true);
 		setup(1, "floor", false);
 		
 		// Level 1 Mercader Demo
