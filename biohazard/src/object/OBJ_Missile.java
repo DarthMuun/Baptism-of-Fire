@@ -22,7 +22,7 @@ public class OBJ_Missile extends Projectile{
 		maxLife = 100;
 		life = maxLife;
 		attack = 5;
-		knockBackPower = 10;
+		knockBackPower = 5;
 		useCost = 1;
 		alive = false;
 		getImage();

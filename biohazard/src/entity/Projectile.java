@@ -5,6 +5,7 @@ import main.GamePanel;
 public class Projectile extends Entity{
 	
 	private Entity user;
+	
 	public Projectile(GamePanel gp) {
 		super(gp);
 
@@ -23,7 +24,7 @@ public class Projectile extends Entity{
 		if(user == gp.player) {
 			int enemiesIndex = gp.cChecker.checkEntity(this, gp.enemies);
 			if(enemiesIndex != 999) {
-				gp.player.damageEnemy(enemiesIndex, attack, knockBackPower);
+				gp.player.damageEnemy(enemiesIndex, this, attack, knockBackPower);
 				generateParticle(user.projectile,gp.enemies[gp.currentMap][enemiesIndex]);
 				alive = false;
 			}

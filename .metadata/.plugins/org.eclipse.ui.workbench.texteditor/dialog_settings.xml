@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="upda"/>
+		<item key="selection" value="update"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="update"/>
+			<item value="damageEnem"/>
+			<item value="damageEnemies"/>
+			<item value="checkStartChasingOrNot"/>
+			<item value="checkSt"/>
 			<item value="upda"/>
 			<item value="up"/>
-			<item value="update"/>
 			<item value="search"/>
 			<item value="amount"/>
 			<item value="drawPath"/>
@@ -19,10 +23,6 @@
 			<item value="length"/>
 			<item value="playSE(2)"/>
 			<item value="public"/>
-			<item value="enterPressed"/>
-			<item value="entered"/>
-			<item value="event"/>
-			<item value="this.g2"/>
 		</list>
 		<list key="replacehistory">
 		</list>

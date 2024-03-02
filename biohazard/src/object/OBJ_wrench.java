@@ -9,13 +9,15 @@ public class OBJ_wrench extends Entity{
 		super(gp);
 		
 		type = type_WonderWeapon;
-		name = "Llave Inglesa";
+		name = "Wrench";
 		down1 = setup("/objects/wrench",gp.tileSize,gp.tileSize);
-		description = "[" + name + "]\nSi, hace mas daño... pero tienes menos alcance";
-		attackValue = 2;
+		description = "[" + name + "]\nYou can destroy metal with this";
+		attackValue = 1;
 		attackArea.width = 32;
 		attackArea.height = 32;
 		knockBackPower = 5;
+		motion1_duration = 20;
+		motion2_duration = 40;
 	}
 
 }
