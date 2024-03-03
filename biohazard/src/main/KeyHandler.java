@@ -8,7 +8,7 @@ public class KeyHandler implements KeyListener{
 	GamePanel gp;
 	boolean musicPlayed = false;
 	
-	public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, interactPressed, shotKeyPressed;
+	public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, interactPressed, shotKeyPressed, guardPressed;
 	
 	//Debug
 	boolean showDebugText = false;
@@ -86,8 +86,11 @@ public class KeyHandler implements KeyListener{
 	            gp.playMusic(0);
 	            musicPlayed = true;  // Marcar la música como reproducida
 	        }
-	    	if(gp.ui.commandNum == 1) {
-	    		
+	    	if(gp.ui.commandNum == 1 && !musicPlayed) {
+	    		gp.saveLoad.load();
+	            gp.gameState = gp.playState;
+	            gp.playMusic(0);
+	            musicPlayed = true;
 	    	}
 	    	if(gp.ui.commandNum == 2) {
 	    		System.exit(0);
@@ -134,6 +137,9 @@ public class KeyHandler implements KeyListener{
         if (code == KeyEvent.VK_V) {
         	gp.gameState = gp.mapState;
         }
+        if (code == KeyEvent.VK_Q) {
+        	guardPressed = true;
+        }
 	    
 
 	    //DEBUG
@@ -164,7 +170,7 @@ public class KeyHandler implements KeyListener{
 	public void dialogueState (int code) {
 		
     	if(code == KeyEvent.VK_SPACE) {
-    		gp.gameState = gp.playState;
+    		interactPressed = true;
     	}
 	}
 	public void characterState (int code) {
@@ -255,13 +261,13 @@ public class KeyHandler implements KeyListener{
 	    	if(gp.ui.commandNum == 0) {
 	    		gp.gameState = gp.playState;
 	    		gp.playSE(16);
-	    		gp.retry();
+	    		gp.resetGame(false);
 	    		gp.playMusic(0);
 	    	}
 	    	if(gp.ui.commandNum == 1) {
 	    		gp.gameState = gp.titleState;
 	    		gp.playSE(11);
-	    		gp.restart();
+	    		gp.resetGame(true);
 	    	}
 	    }
 	}
@@ -371,23 +377,27 @@ public class KeyHandler implements KeyListener{
 		if (code == KeyEvent.VK_W) {
 			upPressed = false;
 		}
-		
 		if (code == KeyEvent.VK_S) {
 			downPressed = false;
 		} 
-		
 		if (code == KeyEvent.VK_A) {
 			leftPressed = false;
 		}
-		
 		if (code == KeyEvent.VK_D) {
 			rightPressed = false;
 		}
-		
 		if (code == KeyEvent.VK_E) {
 			shotKeyPressed = false;
 		}
-		
+		if (code == KeyEvent.VK_Q) {
+			guardPressed = false;
+		}
+		if (code == KeyEvent.VK_ENTER) {
+			enterPressed = false;
+		}
+		if (code == KeyEvent.VK_SPACE) {
+			interactPressed = false;
+		}
 	}
 
 }

@@ -9,16 +9,16 @@ public class OBJ_PorraOne extends Entity{
 		super(gp);
 		
 		type = type_weapon;
-		name = "Porra Electrica";
+		name = "Electric Baton";
 		down1 = setup("/objects/porra",gp.tileSize,gp.tileSize);
-		description = "[" + name + "]\nCool, pero solo hace 1 de daño WTF?";
-		attackValue = 3;
+		description = "[" + name + "]\nGood luck buddy";
+		attackValue = 1;
 		attackArea.width = 45;
 		attackArea.height = 45;
 		price = 150;
 		knockBackPower = 10;
 		motion1_duration = 5;
-		motion2_duration = 35;
+		motion2_duration = 15;
 	}
 
 }

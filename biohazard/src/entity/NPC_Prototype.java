@@ -38,10 +38,15 @@ public class NPC_Prototype extends Entity {
 	
 	public void setDialogue() {
 		
-		dialogues[0] = "Bienvenidos!";
-		dialogues[1] = "Ante ustedes...";
-		dialogues[2] = "Mini_QS MK1";
-		dialogues[3] = "Sigue Explorando!";
+		dialogues[0][0] = "Hello \nMr.Vargas";
+		dialogues[0][1] = "Welcome to the frist \nTechnical Demo";
+		dialogues[0][2] = "Explore the map and \nfind the timer";
+		dialogues[0][3] = "Good luck!";
+		
+		dialogues[1][0] = "Hello Mr.Vargas";
+		dialogues[1][1] = "Prepare for this...";
+		dialogues[1][2] = "Every time that you return to the tunels \nall enemie will revive";
+		dialogues[1][3] = "don' die okey?";
 	}
 	
 	public void setAction() {
@@ -74,7 +79,8 @@ public class NPC_Prototype extends Entity {
 	
 	public void speak() {
 		
-		super.speak();
+		facePlayer();
+		startDialogue(this,dialogueSet);
 	}
 	
 }

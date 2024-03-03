@@ -9,10 +9,10 @@ public class OBJ_RiotShield extends Entity{
 		super(gp);
 		
 		type = type_shield;
-		name = "Escudo Antidisturbios";
+		name = "Riot Shield";
 		down1 = setup("/objects/riotshield",gp.tileSize,gp.tileSize);
 		defenseValue = 3;
-		description = "[" + name + "]\nEsto se pondra bueno";
+		description = "[" + name + "]\nPrepare your weapons";
 		price = 200;
 	}
 }

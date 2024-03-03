@@ -28,7 +28,7 @@ public class AssetSetter {
     	
     	int mapNum = 0;
     	int i = 0;
-    	gp.obj[mapNum][i] = new OBJ_wrench(gp);
+    	gp.obj[mapNum][i] = new OBJ_Key(gp);
     	gp.obj[mapNum][i].worldX = gp.tileSize*24;
     	gp.obj[mapNum][i].worldY = gp.tileSize*68;
     	i++;

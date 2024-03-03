@@ -218,7 +218,7 @@ public class UI {
         	//Menu
         	g2.setFont(g2.getFont().deriveFont(Font.BOLD,50F));
         	
-        	text = "Nuevo Juego";
+        	text = "New Game";
         	x = getXforCenteredText(text);
         	y += gp.tileSize*2;
         	g2.drawString(text, x, y);
@@ -226,7 +226,7 @@ public class UI {
         		g2.drawString("-", x-gp.tileSize, y);
         	}
         	
-        	text = "Cargar Juego";
+        	text = "Load Game";
         	x = getXforCenteredText(text);
         	y += gp.tileSize;
         	g2.drawString(text, x, y);
@@ -234,7 +234,7 @@ public class UI {
         		g2.drawString("-", x-gp.tileSize, y);
         	}
         	
-        	text = "Salir";
+        	text = "Exit";
         	x = getXforCenteredText(text);
         	y += gp.tileSize;
         	g2.drawString(text, x, y);
@@ -252,7 +252,7 @@ public class UI {
     public void drawPauseScreen() {
     	
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 80F));
-        String text = "P A U S A";
+        String text = "P A U S E";
         int x = getXforCenteredText(text);
         int y = gp.screenHeight / 2;
 
@@ -271,6 +271,27 @@ public class UI {
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN,30F));
         x += gp.tileSize;
         y += gp.tileSize;
+        
+        if(npc.dialogues[npc.dialogueSet][npc.dialogueIndex] != null) {
+        	
+        	currentDialogue = npc.dialogues[npc.dialogueSet][npc.dialogueIndex];
+        	
+        	if(gp.keyH.interactPressed == true) {
+        		
+        		if(gp.gameState == gp.dialogueState) {
+        			
+        			npc.dialogueIndex++;
+        			gp.keyH.interactPressed = false;
+        		}
+        	}
+        }
+        else { //If no text is in the array
+        	npc.dialogueIndex = 0;
+        	
+        	if(gp.gameState == gp.dialogueState) {
+        		gp.gameState = gp.playState;
+        	}
+        }
         
         for(String line: currentDialogue.split("\n")) {
         	g2.drawString(line, x, y);
@@ -296,18 +317,18 @@ public class UI {
     	final int lineHeight = 35;
     	
     	//Stats
-    	g2.drawString("Nivel Actual", textX, textY); textY += lineHeight;
-    	g2.drawString("Salud", textX, textY); textY += lineHeight;
-    	g2.drawString("Misiles", textX, textY); textY += lineHeight;
-    	g2.drawString("Fortaleza", textX, textY); textY += lineHeight;
-    	g2.drawString("Destreza", textX, textY); textY += lineHeight;
-    	g2.drawString("Ataque", textX, textY); textY += lineHeight;
-    	g2.drawString("Defensa", textX, textY); textY += lineHeight;
-    	g2.drawString("Experiencia", textX, textY); textY += lineHeight;
-    	g2.drawString("Siguiente Nivel", textX, textY); textY += lineHeight;
-    	g2.drawString("Partes", textX, textY); textY += lineHeight + 35;
-    	g2.drawString("Arma Actual", textX, textY); textY += lineHeight + 40;
-    	g2.drawString("Escudo Actual", textX, textY); textY += lineHeight;
+    	g2.drawString("Level", textX, textY); textY += lineHeight;
+    	g2.drawString("Health", textX, textY); textY += lineHeight;
+    	g2.drawString("Missiles", textX, textY); textY += lineHeight;
+    	g2.drawString("Strength", textX, textY); textY += lineHeight;
+    	g2.drawString("Dexterity", textX, textY); textY += lineHeight;
+    	g2.drawString("Attack", textX, textY); textY += lineHeight;
+    	g2.drawString("Defense", textX, textY); textY += lineHeight;
+    	g2.drawString("Experience", textX, textY); textY += lineHeight;
+    	g2.drawString("Next Level", textX, textY); textY += lineHeight;
+    	g2.drawString("Parts", textX, textY); textY += lineHeight + 35;
+    	g2.drawString("Actual Weapon", textX, textY); textY += lineHeight + 40;
+    	g2.drawString("Actual Shield", textX, textY); textY += lineHeight;
     	
     	//Values
     	int tailX = (frameX + frameWidth) - 30;
@@ -483,8 +504,7 @@ public class UI {
     	}
     		
     }
-
-    
+   
     public void drawGameOverScreen() {
     	
     	g2.setColor(new Color(0,0,0,175));
@@ -493,7 +513,7 @@ public class UI {
     	int x;
     	int y;
     	String text;
-    	g2.setFont(g2.getFont().deriveFont(Font.BOLD, 85F));
+    	g2.setFont(g2.getFont().deriveFont(Font.BOLD, 90F));
     	
     	text = "YOU ARE DEAD";
     	
@@ -663,6 +683,8 @@ public class UI {
         g2.drawString("Shoot Missile", textX, textY); textY+=gp.tileSize;
         g2.drawString("Statistics", textX, textY); textY+=gp.tileSize;
         g2.drawString("Inventory", textX, textY); textY+=gp.tileSize;
+        g2.drawString("Equip Item", textX, textY); textY+=gp.tileSize;
+        g2.drawString("Block/Parry", textX, textY); textY+=gp.tileSize;
         
         textX = frameX + gp.tileSize*5;
         textY = frameY + gp.tileSize*2;
@@ -671,6 +693,8 @@ public class UI {
         g2.drawString("E", textX, textY); textY+=gp.tileSize;
         g2.drawString("C", textX, textY); textY+=gp.tileSize;
         g2.drawString("C", textX, textY); textY+=gp.tileSize;
+        g2.drawString("ENTER", textX, textY); textY+=gp.tileSize;
+        g2.drawString("E", textX, textY); textY+=gp.tileSize;
         
         //BACK
         textX = frameX + gp.tileSize;
@@ -729,6 +753,7 @@ public class UI {
             if (gp.keyH.enterPressed == true) {
                 subState = 0;
                 gp.gameState = gp.titleState;
+                gp.resetGame(true);
             }
         }
 
@@ -775,6 +800,7 @@ public class UI {
     
     public void trade_select() {
     	
+    	npc.dialogueSet = 0;
     	drawDialogueScreen();
     	
     	//Window 1
@@ -795,7 +821,7 @@ public class UI {
     		}
     	}
     	y += gp.tileSize;
-    	g2.drawString("Destroy", x, y);
+    	g2.drawString("Disarm", x, y);
     	if(commandNum == 1) {
     		g2.drawString("-", x-24, y);
     		if(gp.keyH.enterPressed == true) {
@@ -808,8 +834,7 @@ public class UI {
     		g2.drawString("-", x-24, y);
     		if(gp.keyH.enterPressed == true) {
     			commandNum = 0;
-    			gp.gameState = gp.dialogueState;
-    			currentDialogue = "Dont die!";
+    			npc.startDialogue(npc,1);
     		}
     	}
     } 
@@ -856,9 +881,7 @@ public class UI {
     		if(gp.keyH.enterPressed == true) {
     			if(npc.inventory.get(itemIndex).price>gp.player.parts) {
     				subState = 0;
-    				gp.gameState = gp.dialogueState;
-    				currentDialogue = "Nop, I need more parts \nfor that homie";
-    				drawDialogueScreen();
+    				npc.startDialogue(npc,2);
     			}
     			else {
     				if(gp.player.canObtainItem(npc.inventory.get(itemIndex)) == true) {
@@ -866,8 +889,7 @@ public class UI {
     				}
     				else {
     					subState = 0;
-    					gp.gameState = gp.dialogueState;
-    					currentDialogue = "You cannot carry any more";
+    					npc.startDialogue(npc,3);
     				}
     			}
     		}
@@ -922,8 +944,7 @@ public class UI {
             			gp.player.inventory.get(itemIndex) == gp.player.currentShield) {
             		commandNum = 0;
             		subState = 0;
-            		gp.gameState = gp.dialogueState;
-            		currentDialogue = "Dont be an Asshole dude, How \nyou're going to survive?";
+            		npc.startDialogue(npc,4);
             	}
             	else {
             		if(gp.player.inventory.get(itemIndex).amount > 1) {
@@ -937,7 +958,6 @@ public class UI {
             }
         }
     }
-
     
     public int getItemIndexOnSlot(int slotCol, int slotRow) {
     	int itemIndex = slotCol + (slotRow*5);

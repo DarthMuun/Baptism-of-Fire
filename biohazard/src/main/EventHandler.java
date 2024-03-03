@@ -6,6 +6,7 @@ public class EventHandler {
 	
 	GamePanel gp;
 	EventRect eventRect[][][];
+	Entity eventMaster;
 	
 	int previousEventX, previousEventY;
 	boolean canTouchEvent = true;
@@ -13,6 +14,8 @@ public class EventHandler {
     
 	public EventHandler(GamePanel gp) {
 		this.gp = gp;
+		
+		eventMaster = new Entity(gp);
 		
 		eventRect = new EventRect[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
 		
@@ -40,8 +43,13 @@ public class EventHandler {
 				}
 			}
 		}
-		
+		setDialogue();
 	}	
+	
+	public void setDialogue() {
+	
+		eventMaster.dialogues[0][0] = "Stop crying, the progress is saved";
+	}
 	
 	public void checkEvent() {
 		
@@ -54,30 +62,33 @@ public class EventHandler {
 		
 		if (canTouchEvent == true) {
 		
+			//Save and Restore Health
+			if (hit(1, 26, 70, "any") == true) { healingPool(gp.dialogueState); }
+			
 			//Teleport "Tuneles"
 			
 			//IDA
-			if (hit(0, 38, 79, "right")) { teleport1(0, 39, 62); }
-			else if (hit(0, 39, 49, "up")) { teleport1(0, 41, 40); }
-			else if (hit(0, 77, 46, "down")) { teleport1(0, 61, 49); }
-			else if (hit(0, 61, 62, "down")) { teleport1(0, 96, 79); }
-			else if (hit(0, 15, 33, "up")) { teleport1(0, 21, 19); }
-			else if (hit(0, 77, 26, "up")) { teleport1(0, 72, 19); }
+			 if (hit(0, 38, 79, "right") == true) { teleport1(0, 39, 62); }
+			else if (hit(0, 39, 49, "up") == true) { teleport1(0, 41, 40); }
+			else if (hit(0, 77, 46, "down") == true) { teleport1(0, 61, 49); }
+			else if (hit(0, 61, 62, "down") == true) { teleport1(0, 96, 79); }
+			else if (hit(0, 15, 33, "up") == true) { teleport1(0, 21, 19); }
+			else if (hit(0, 77, 26, "up") == true) { teleport1(0, 72, 19); }
 			
 			//Retorno
-			else if (hit(0, 39, 62, "down")) { teleport2(0, 38, 79); }
-			else if (hit(0, 41, 40, "down")) { teleport2(0, 39, 49); }
-			else if (hit(0, 61, 49, "up")) { teleport2(0, 77, 46); }
-			else if (hit(0, 96, 79, "right")) { teleport2(0, 61, 62); }
-			else if (hit(0, 21, 19, "down")) { teleport2(0, 15, 33); }
-			else if (hit(0, 72, 19, "down")) { teleport2(0, 77, 26); }
+			else if (hit(0, 39, 62, "down") == true) { teleport2(0, 38, 79); }
+			else if (hit(0, 41, 40, "down") == true) { teleport2(0, 39, 49); }
+			else if (hit(0, 61, 49, "up") == true) { teleport2(0, 77, 46); }
+			else if (hit(0, 96, 79, "right") == true) { teleport2(0, 61, 62); }
+			else if (hit(0, 21, 19, "down") == true) { teleport2(0, 15, 33); }
+			else if (hit(0, 72, 19, "down") == true) { teleport2(0, 77, 26); }
 			
 			//NEW MAP
-			else if (hit(0, 41, 14, "up")) { teleport1(1, 24, 81); }
-			else if (hit(1, 24, 81, "down")) { teleport2(0, 41, 14); }
+			else if (hit(0, 41, 14, "up") == true) { teleport1(1, 24, 81); }
+			else if (hit(1, 24, 81, "down") == true) { teleport2(0, 41, 14); }
 			
 			//MrQS
-			else if (hit(0, 24, 67, "up")) { speak(gp.npc[1][0]); }
+			else if (hit(0, 24, 67, "up") == true) { speak(gp.npc[1][0]); }
 		}		
 
 	}
@@ -132,9 +143,23 @@ public class EventHandler {
 		
 	}
 	
+	public void healingPool(int gameState) {
+		
+		if(gp.keyH.interactPressed == true) {
+			gp.gameState = gameState;
+			gp.player.attackCanceled = true;
+			gp.playSE(2);
+			eventMaster.startDialogue(eventMaster, 0);
+			gp.player.life = gp.player.maxLife;
+			gp.player.ammo = gp.player.maxAmmo;
+			gp.aSetter.setEnemies();
+			gp.saveLoad.save();
+		}
+	}
+	
 	public void speak(Entity entity) {
 		
-		if (gp.keyH.enterPressed) {
+		if (gp.keyH.interactPressed) {
 			gp.gameState = gp.dialogueState;
 			gp.player.attackCanceled = true;
 			entity.speak();

@@ -17,23 +17,30 @@ public class OBJ_Key extends Entity {
         description = "[" + name + "]\nGo and open the door";
         price = 500;
         stackable = false;
+        
+        setDialogue();
     }
+    
+	public void setDialogue() {
+		
+		dialogues[0][0] = "You use the " + name + " it's time to move";
+		
+		dialogues[1][0] = "What are you doing? \nAre you stupid?";
+	}
 	
-	 public boolean use(Entity entity) {
+    public boolean use(Entity entity) {
 
-		 gp.gameState = gp.dialogueState;
+        int objIndex = getDetected(entity, gp.obj, "Door");
 
-		 int objIndex = getDetected(entity, gp.obj, "Door");// Llamar a los métodos getObj() y getDetected() correctamente
-
-	        if (objIndex != -1) { // Cambiar 999 por -1
-				gp.ui.currentDialogue = "You use the " + name + " it's time to move";
-				gp.playSE(3);
-				gp.obj[gp.currentMap][objIndex] = null;
-				return true;
-	        } else {
-				gp.ui.currentDialogue = "What are you doing? \nr u stupid?";
-				return true;// Devolver false en lugar de true
-	        }
-	    }
+        if (objIndex != -1) { 
+            startDialogue(this,0);
+            gp.playSE(3);
+            gp.obj[gp.currentMap][objIndex] = null;
+            return true;
+        } else {
+        	startDialogue(this,0);
+            return false; 
+        }
+    }
 	
 }

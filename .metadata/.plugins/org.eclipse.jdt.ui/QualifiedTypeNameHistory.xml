@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="java.awt.Dimension"/>
     <fullyQualifiedTypeName name="javax.swing.JFrame"/>
     <fullyQualifiedTypeName name="javax.swing.JPanel"/>
     <fullyQualifiedTypeName name="java.awt.event.KeyListener"/>
@@ -13,7 +12,6 @@
     <fullyQualifiedTypeName name="entity.NPC_Prototype"/>
     <fullyQualifiedTypeName name="java.awt.BasicStroke"/>
     <fullyQualifiedTypeName name="entity.Player"/>
-    <fullyQualifiedTypeName name="object.OBJ_wrench"/>
     <fullyQualifiedTypeName name="entity.Projectile"/>
     <fullyQualifiedTypeName name="object.OBJ_Blagh"/>
     <fullyQualifiedTypeName name="object.OBJ_Heart"/>
@@ -30,25 +28,15 @@
     <fullyQualifiedTypeName name="java.io.FileWriter"/>
     <fullyQualifiedTypeName name="java.io.BufferedReader"/>
     <fullyQualifiedTypeName name="java.io.FileReader"/>
-    <fullyQualifiedTypeName name="java.awt.Rectangle"/>
-    <fullyQualifiedTypeName name="object.OBJ_HealthElix"/>
-    <fullyQualifiedTypeName name="object.OBJ_ItemOne"/>
-    <fullyQualifiedTypeName name="object.OBJ_PorraOne"/>
-    <fullyQualifiedTypeName name="object.OBJ_ShieldOne"/>
-    <fullyQualifiedTypeName name="object.OBJ_RiotShield"/>
-    <fullyQualifiedTypeName name="object.OBJ_Key"/>
     <fullyQualifiedTypeName name="entity.NPC_MrQS"/>
     <fullyQualifiedTypeName name="object.OBJ_Parts"/>
-    <fullyQualifiedTypeName name="java.util.ArrayList"/>
     <fullyQualifiedTypeName name="ai.PathFinder"/>
     <fullyQualifiedTypeName name="tile.TileManager"/>
-    <fullyQualifiedTypeName name="object.OBJ_Chest"/>
     <fullyQualifiedTypeName name="java.awt.geom.Rectangle2D.Double"/>
     <fullyQualifiedTypeName name="java.awt.geom.Rectangle2D"/>
     <fullyQualifiedTypeName name="java.awt.geom.Ellipse2D.Double"/>
     <fullyQualifiedTypeName name="java.awt.geom.Ellipse2D"/>
     <fullyQualifiedTypeName name="java.awt.RadialGradientPaint"/>
-    <fullyQualifiedTypeName name="object.OBJ_Lantern"/>
     <fullyQualifiedTypeName name="java.awt.image.BufferedImage"/>
     <fullyQualifiedTypeName name="main.GamePanel"/>
     <fullyQualifiedTypeName name="java.awt.Graphics2D"/>
@@ -58,6 +46,18 @@
     <fullyQualifiedTypeName name="java.awt.AlphaComposite"/>
     <fullyQualifiedTypeName name="java.util.Random"/>
     <fullyQualifiedTypeName name="enviroment.EnviromentManager"/>
-    <fullyQualifiedTypeName name="entity.Entity"/>
     <fullyQualifiedTypeName name="enemies.MTNT_Orc"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="entity.Entity"/>
+    <fullyQualifiedTypeName name="object.OBJ_wrench"/>
+    <fullyQualifiedTypeName name="object.OBJ_PorraOne"/>
+    <fullyQualifiedTypeName name="object.OBJ_HealthElix"/>
+    <fullyQualifiedTypeName name="object.OBJ_Lantern"/>
+    <fullyQualifiedTypeName name="object.OBJ_ItemOne"/>
+    <fullyQualifiedTypeName name="object.OBJ_ShieldOne"/>
+    <fullyQualifiedTypeName name="object.OBJ_RiotShield"/>
+    <fullyQualifiedTypeName name="object.OBJ_Key"/>
+    <fullyQualifiedTypeName name="object.OBJ_Door"/>
+    <fullyQualifiedTypeName name="object.OBJ_Chest"/>
+    <fullyQualifiedTypeName name="java.awt.Rectangle"/>
 </qualifiedTypeNameHistroy>

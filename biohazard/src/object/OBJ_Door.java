@@ -22,11 +22,17 @@ public class OBJ_Door extends Entity{
 		solidArea.height = 32;
 		solidAreaDefaultX = solidArea.x;
 		solidAreaDefaultY = solidArea.y;
+		
+		setDialogue();
+	}
+	
+	public void setDialogue() {
+		
+		dialogues[0][0] = "You need to find a key first";
 	}
 	
 	public void interact() {
 		
-		gp.gameState = gp.dialogueState;
-		gp.ui.currentDialogue = "WORNG! You need to find the key";
+		startDialogue(this,0);
 	}
 }
