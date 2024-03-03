@@ -7,16 +7,7 @@ import java.io.ObjectOutputStream;
 
 import entity.Entity;
 import main.GamePanel;
-import object.OBJ_Chest;
-import object.OBJ_Door;
-import object.OBJ_HealthElix;
-import object.OBJ_ItemOne;
-import object.OBJ_Key;
-import object.OBJ_Lantern;
-import object.OBJ_PorraOne;
-import object.OBJ_RiotShield;
-import object.OBJ_ShieldOne;
-import object.OBJ_wrench;
+import object.*;
 
 public class SaveLoad {
 	
@@ -122,7 +113,7 @@ public class SaveLoad {
 			//Objects on Map
 			for(int mapNum = 0; mapNum < gp.maxMap; mapNum++) {
 				
-				for(int i = 0; i < gp.obj[i].length; i++) {
+				for(int i = 0; i < gp.obj[1].length; i++) {
 					
 					if(ds.mapObjectLootNames[mapNum][i].equals("NA")) {
 						gp.obj[mapNum][i] = null;
