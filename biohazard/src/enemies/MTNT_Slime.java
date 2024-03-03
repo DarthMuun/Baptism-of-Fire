@@ -24,9 +24,9 @@ public class MTNT_Slime extends Entity{
 		speed = defaultSpeed;
 		maxLife = 6;
 		life = maxLife;
-		attack = 5;
+		attack = 3;
 		defense = 0;
-		exp = 3;
+		exp = 5;
 		projectile = new OBJ_Blagh(gp);
 		
 		solidArea.x = 3;

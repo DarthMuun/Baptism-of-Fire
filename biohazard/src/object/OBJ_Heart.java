@@ -4,6 +4,8 @@ import entity.Entity;
 import main.GamePanel;
 
 public class OBJ_Heart extends Entity{
+	
+	public static final String objName = "Healh Point";
 
 	GamePanel gp;
 	
@@ -12,7 +14,7 @@ public class OBJ_Heart extends Entity{
 		this.gp = gp;
 		
 		type = type_pickupOnly;
-		name = "Heart";
+		name = objName;
 		value = 2;
 		down1 = setup("/objects/pnthealth",gp.tileSize,gp.tileSize);
 		image = setup("/objects/heart_full",gp.tileSize,gp.tileSize);
@@ -23,7 +25,7 @@ public class OBJ_Heart extends Entity{
 	public boolean use (Entity entity) {
 		
 		gp.playSE(15);
-		gp.ui.addMessage("Has Recuperado +" + value);
+		gp.ui.addMessage("You have recovered +" + value);
 		entity.life += value;
 		return true;
 	}

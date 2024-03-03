@@ -5,11 +5,13 @@ import main.GamePanel;
 
 public class OBJ_wrench extends Entity{
 	
+	public static final String objName = "Wrench";
+	
 	public OBJ_wrench (GamePanel gp) {
 		super(gp);
 		
 		type = type_WonderWeapon;
-		name = "Wrench";
+		name = objName;
 		down1 = setup("/objects/wrench",gp.tileSize,gp.tileSize);
 		description = "[" + name + "]\nYou can destroy metal with this";
 		attackValue = 1;

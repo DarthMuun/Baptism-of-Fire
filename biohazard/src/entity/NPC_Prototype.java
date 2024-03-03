@@ -1,6 +1,7 @@
 package entity;
 
 
+import java.awt.Rectangle;
 import java.util.Random;
 
 import main.GamePanel;
@@ -13,7 +14,17 @@ public class NPC_Prototype extends Entity {
 		
 		
 		direction = "down";
-		speed = 1;
+		speed = 0;
+		
+		solidArea = new Rectangle();
+		solidArea.x = 8;
+		solidArea.y = 16;
+		solidAreaDefaultX = solidArea.x;
+		solidAreaDefaultY = solidArea.y;
+		solidArea.width = 30;
+		solidArea.height = 30;
+		
+		dialogueSet = -1;
 		
 		getImage();
 		setDialogue();
@@ -43,10 +54,11 @@ public class NPC_Prototype extends Entity {
 		dialogues[0][2] = "Explore the map and \nfind the timer";
 		dialogues[0][3] = "Good luck!";
 		
-		dialogues[1][0] = "Hello Mr.Vargas";
-		dialogues[1][1] = "Prepare for this...";
-		dialogues[1][2] = "Every time that you return to the tunels \nall enemie will revive";
-		dialogues[1][3] = "don' die okey?";
+		dialogues[1][0] = "Mr.Vargas";
+		dialogues[1][1] = "Touch the Blue Block";
+		dialogues[1][2] = "you will recieve \nmax ammo and health";
+		dialogues[1][3] = "Move on!";
+
 	}
 	
 	public void setAction() {
@@ -81,6 +93,21 @@ public class NPC_Prototype extends Entity {
 		
 		facePlayer();
 		startDialogue(this,dialogueSet);
+		
+		//Configuration Standar
+		
+		dialogueSet++;
+		
+		if(dialogues[dialogueSet][0] == null) {
+			
+			dialogueSet--;
+		}
+		
+		//Specific stuff (Live)
+		//if(gp.player.life < gp.player.maxLife/3) {
+		//	dialogueSet = 1;
+		//}
+		
 	}
 	
 }

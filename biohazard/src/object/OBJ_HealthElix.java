@@ -5,6 +5,8 @@ import main.GamePanel;
 
 public class OBJ_HealthElix extends Entity{
 	
+	public static final String objName = "Healing Infusion";
+	
 	GamePanel gp;
 	
 	public OBJ_HealthElix (GamePanel gp) {
@@ -13,7 +15,7 @@ public class OBJ_HealthElix extends Entity{
 		this.gp = gp;
 		
 		type = type_consumable;
-		name = "Health Potion";
+		name = objName;
 		value = 5;
 		down1 = setup("/objects/health",gp.tileSize,gp.tileSize);
 		description = "[Health Potion]\nThe name say it you earn " + value + " pts of health";
@@ -24,9 +26,8 @@ public class OBJ_HealthElix extends Entity{
 	
 	public void setDialogue() {
 		
-		dialogues[0][0] = "You use the " + name + " it's time to move";
+		dialogues[0][0] = "You have recovered +" + name + " it's time to move";
 		
-		dialogues[1][0] = "What are you doing? \nAre you stupid?";
 	}
 	
 	public boolean use (Entity entity) {

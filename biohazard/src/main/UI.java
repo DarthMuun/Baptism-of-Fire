@@ -36,6 +36,8 @@ public class UI {
     int subState = 0;
     int counter = 0;
     public Entity npc;
+    int charIndex = 0;
+    String combinedText = "";
 
     public UI(GamePanel gp) {
         this.gp = gp;
@@ -274,9 +276,23 @@ public class UI {
         
         if(npc.dialogues[npc.dialogueSet][npc.dialogueIndex] != null) {
         	
-        	currentDialogue = npc.dialogues[npc.dialogueSet][npc.dialogueIndex];
+        	//currentDialogue = npc.dialogues[npc.dialogueSet][npc.dialogueIndex];
+        	
+        	char characters[] = npc.dialogues[npc.dialogueSet][npc.dialogueIndex].toCharArray();
+        	
+        	if(charIndex < characters.length) {
+        		
+        		gp.playSE(24);
+        		String s = String.valueOf(characters[charIndex]);
+        		combinedText = combinedText + s;
+        		currentDialogue = combinedText;
+        		charIndex++;
+        	}
         	
         	if(gp.keyH.interactPressed == true) {
+        		
+        		charIndex = 0;
+        		combinedText = "";
         		
         		if(gp.gameState == gp.dialogueState) {
         			
@@ -500,6 +516,8 @@ public class UI {
         			g2.drawString(line, textX, textY);
         			textY +=32;
         		}
+        		//Durability
+        		g2.drawString("Durability: " + entity.inventory.get(itemIndex).durability, textX, textY+100);
         	}
     	}
     		
@@ -834,7 +852,7 @@ public class UI {
     		g2.drawString("-", x-24, y);
     		if(gp.keyH.enterPressed == true) {
     			commandNum = 0;
-    			npc.startDialogue(npc,1);
+    			npc.startDialogue(npc,0);
     		}
     	}
     } 

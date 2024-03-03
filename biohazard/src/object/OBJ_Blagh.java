@@ -4,6 +4,9 @@ import entity.Projectile;
 import main.GamePanel;
 
 public class OBJ_Blagh extends Projectile {
+	
+	public static final String objName = "Blagh";
+	
 	GamePanel gp;
 
 	public OBJ_Blagh(GamePanel gp) {
@@ -11,7 +14,7 @@ public class OBJ_Blagh extends Projectile {
 		super(gp);
 		this.gp = gp;
 		
-		name = "Blagh";
+		name = objName;
 		speed = 10;
 		maxLife = 100;
 		life = maxLife;

@@ -19,14 +19,14 @@ public class MTNT_Orc extends Entity {
 
         type = type_enemy;
         name = "Abomination";
-        defaultSpeed = 1;
+        defaultSpeed = 2;
         speed = defaultSpeed;
         maxLife = 10;
         life = maxLife;
         attack = 8;
         defense = 2;
         exp = 10;
-        knockBackPower = 3;
+        knockBackPower = 1;
         
         solidArea.x = 4;
         solidArea.y = 4;

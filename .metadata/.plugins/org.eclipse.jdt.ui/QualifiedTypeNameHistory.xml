@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="javax.swing.JFrame"/>
     <fullyQualifiedTypeName name="javax.swing.JPanel"/>
     <fullyQualifiedTypeName name="java.awt.event.KeyListener"/>
     <fullyQualifiedTypeName name="main.KeyHandler"/>
@@ -14,8 +13,6 @@
     <fullyQualifiedTypeName name="entity.Player"/>
     <fullyQualifiedTypeName name="entity.Projectile"/>
     <fullyQualifiedTypeName name="object.OBJ_Blagh"/>
-    <fullyQualifiedTypeName name="object.OBJ_Heart"/>
-    <fullyQualifiedTypeName name="object.OBJ_Ammo"/>
     <fullyQualifiedTypeName name="tiles_interactive.InteractiveTile"/>
     <fullyQualifiedTypeName name="tiles_interactive.IT_SoftWall"/>
     <fullyQualifiedTypeName name="java.awt.Graphics"/>
@@ -29,7 +26,6 @@
     <fullyQualifiedTypeName name="java.io.BufferedReader"/>
     <fullyQualifiedTypeName name="java.io.FileReader"/>
     <fullyQualifiedTypeName name="entity.NPC_MrQS"/>
-    <fullyQualifiedTypeName name="object.OBJ_Parts"/>
     <fullyQualifiedTypeName name="ai.PathFinder"/>
     <fullyQualifiedTypeName name="tile.TileManager"/>
     <fullyQualifiedTypeName name="java.awt.geom.Rectangle2D.Double"/>
@@ -60,4 +56,8 @@
     <fullyQualifiedTypeName name="object.OBJ_Door"/>
     <fullyQualifiedTypeName name="object.OBJ_Chest"/>
     <fullyQualifiedTypeName name="java.awt.Rectangle"/>
+    <fullyQualifiedTypeName name="object.OBJ_Ammo"/>
+    <fullyQualifiedTypeName name="object.OBJ_Heart"/>
+    <fullyQualifiedTypeName name="object.OBJ_Parts"/>
+    <fullyQualifiedTypeName name="object.OBJ_Missile"/>
 </qualifiedTypeNameHistroy>

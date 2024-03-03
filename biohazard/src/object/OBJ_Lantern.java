@@ -5,13 +5,15 @@ import main.GamePanel;
 
 public class OBJ_Lantern extends Entity{
 	
+	public static final String objName = "Capsule";
+	
 	public OBJ_Lantern(GamePanel gp) {
 		super(gp);
 		
 		type = type_light;
-		name = "Capsule";
+		name = objName;
 		down1 = setup("/objects/lantern",gp.tileSize,gp.tileSize);
-		description = "[Capsule] \nIf you don't use it you're fucked";
+		description = "[Capsule] \nDON'T FUCKING SELL IT!";
 		price = 1000;
 		lightRadius = 200;
 	}

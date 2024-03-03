@@ -5,6 +5,8 @@ import main.GamePanel;
 
 public class OBJ_Parts extends Entity{
 	
+	public static final String objName = "Metal Parts";
+	
 	GamePanel gp;
 	
 	public OBJ_Parts(GamePanel gp){
@@ -12,7 +14,7 @@ public class OBJ_Parts extends Entity{
 		this.gp = gp;
 		
 		type = type_pickupOnly;
-		name = "Metal Parts";
+		name = objName;
 		value = 3;
 		down1 = setup("/objects/parts",gp.tileSize,gp.tileSize);
 	}

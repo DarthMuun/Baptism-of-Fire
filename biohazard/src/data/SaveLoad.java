@@ -26,26 +26,6 @@ public class SaveLoad {
 		this.gp = gp;
 	}
 	
-	public Entity getObject(String itemName) {
-		
-		Entity obj = null;
-		
-		switch(itemName) {
-		case "Wrench": obj = new OBJ_wrench(gp); break;
-		case "Electric Baton": obj = new OBJ_PorraOne(gp); break;
-		case "Capsule": obj = new OBJ_Lantern(gp); break;
-		case "Health Potion": obj = new OBJ_HealthElix(gp); break;
-		case "Stamin Up": obj = new OBJ_ItemOne(gp); break;
-		case "Shield": obj = new OBJ_ShieldOne(gp); break;
-		case "Riot Shield": obj = new OBJ_RiotShield(gp); break;
-		case "Key": obj = new OBJ_Key(gp); break;
-		case "Door": obj = new OBJ_Door(gp); break;
-		case "Chest": obj = new OBJ_Chest(gp); break;
-		
-		}
-		return obj;
-	}
-	
 	public void save() {
 		try {
 			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("save.dat"));
@@ -129,7 +109,7 @@ public class SaveLoad {
 			//Player Inventory
 			gp.player.inventory.clear();
 			for(int i = 0; i < ds.itemNames.size(); i++) {
-				gp.player.inventory.add(getObject(ds.itemNames.get(i)));
+				gp.player.inventory.add(gp.eGenerator.getObject(ds.itemNames.get(i)));
 				gp.player.inventory.get(i).amount = ds.itemAmounts.get(i);
 			}
 			//Player Equipment
@@ -148,11 +128,11 @@ public class SaveLoad {
 						gp.obj[mapNum][i] = null;
 					}
 					else {
-						gp.obj[mapNum][i] = getObject(ds.mapObjectLootNames[mapNum][i]);
+						gp.obj[mapNum][i] = gp.eGenerator.getObject(ds.mapObjectLootNames[mapNum][i]);
 						gp.obj[mapNum][i].worldX = ds.mapObjectWorldX[mapNum][i];
 						gp.obj[mapNum][i].worldY = ds.mapObjectWorldY[mapNum][i];
 						if(ds.mapObjectLootNames[mapNum][i] != null) {
-							gp.obj[mapNum][i].loot = getObject(ds.mapObjectLootNames[mapNum][i]);
+							gp.obj[mapNum][i].loot = gp.eGenerator.getObject(ds.mapObjectLootNames[mapNum][i]);
 						}
 						gp.obj[mapNum][i].opened = ds.mapObjectOpened[mapNum][i];
 						if(gp.obj[mapNum][i].opened == true) {

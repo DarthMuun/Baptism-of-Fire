@@ -10,6 +10,8 @@ import main.GamePanel;
 
 public class OBJ_Missile extends Projectile{
 	
+	public static final String objName = "Misil";
+	
 	GamePanel gp;
 
 	public OBJ_Missile(GamePanel gp) {
@@ -17,7 +19,7 @@ public class OBJ_Missile extends Projectile{
 		super(gp);
 		this.gp = gp;
 		
-		name = "Misil";
+		name = objName;
 		speed = 10;
 		maxLife = 100;
 		life = maxLife;

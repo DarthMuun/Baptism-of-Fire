@@ -63,7 +63,7 @@ public class EventHandler {
 		if (canTouchEvent == true) {
 		
 			//Save and Restore Health
-			if (hit(1, 26, 70, "any") == true) { healingPool(gp.dialogueState); }
+			if (hit(1, 24, 79, "any") == true) { healingPool(gp.dialogueState); }
 			
 			//Teleport "Tuneles"
 			
@@ -85,7 +85,7 @@ public class EventHandler {
 			
 			//NEW MAP
 			else if (hit(0, 41, 14, "up") == true) { teleport1(1, 24, 81); }
-			else if (hit(1, 24, 81, "down") == true) { teleport2(0, 41, 14); }
+			else if (hit(1, 24, 82, "down") == true) { teleport3(0, 41, 14); }
 			
 			//MrQS
 			else if (hit(0, 24, 67, "up") == true) { speak(gp.npc[1][0]); }
@@ -143,6 +143,18 @@ public class EventHandler {
 		
 	}
 	
+	public void teleport3(int map, int col,int row) {
+		
+		gp.gameState = gp.transitionState;
+		tempMap = map;
+		tempCol = col;
+		tempRow = row;
+		canTouchEvent = false;
+		gp.playSE(18);
+		gp.aSetter.setEnemies();
+		
+	}
+	
 	public void healingPool(int gameState) {
 		
 		if(gp.keyH.interactPressed == true) {
@@ -152,7 +164,6 @@ public class EventHandler {
 			eventMaster.startDialogue(eventMaster, 0);
 			gp.player.life = gp.player.maxLife;
 			gp.player.ammo = gp.player.maxAmmo;
-			gp.aSetter.setEnemies();
 			gp.saveLoad.save();
 		}
 	}

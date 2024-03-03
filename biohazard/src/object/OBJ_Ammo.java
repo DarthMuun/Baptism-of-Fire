@@ -5,6 +5,8 @@ import main.GamePanel;
 
 public class OBJ_Ammo extends Entity{
 	
+	public static final String objName = "Missile";
+	
 	GamePanel gp;
 	
 	public OBJ_Ammo(GamePanel gp) {
@@ -12,7 +14,7 @@ public class OBJ_Ammo extends Entity{
 		this.gp = gp;
 		
 		type = type_pickupOnly;
-		name = "Municion Misiles";
+		name = objName;
 		value = 1;
 		down1 = setup("/objects/full",gp.tileSize,gp.tileSize);	
 		image = setup("/objects/full",gp.tileSize,gp.tileSize);	
@@ -22,7 +24,7 @@ public class OBJ_Ammo extends Entity{
 	public boolean use (Entity entity) {
 		
 		gp.playSE(2);
-		gp.ui.addMessage("Has Recuperado +" + value + " misil");
+		gp.ui.addMessage("You take +" + value + " missile");
 		entity.ammo += value;
 		return true ;
 	}

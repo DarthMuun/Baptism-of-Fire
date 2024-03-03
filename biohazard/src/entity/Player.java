@@ -290,6 +290,9 @@ public class Player extends Entity {
 		    	gp.playSE(7);
 		    	attacking = true;
 		    	spriteCounter =0;
+		    	
+		    	//Decrease Durability
+		    	currentWeapon.durability--;
 		    }
 		  
 		  attackCanceled = false;
@@ -490,7 +493,8 @@ public class Player extends Entity {
 			
 			gp.playSE(14);
 			gp.gameState = gp.dialogueState;
-			dialogues[0][0] = "LEVEL UP " + level + ".LVL";
+			//dialogues[0][0] = "LEVEL UP " + level + ".LVL";
+			setDialogue();
 			startDialogue(this,0);
 		}
 	}
@@ -558,7 +562,10 @@ public class Player extends Entity {
 		
 		boolean canObtain = false;
 		
-		if(item.stackable == true) {
+		Entity newItem = gp.eGenerator.getObject(item.name);
+		
+		//Stackable
+		if(newItem.stackable == true) {
 			
 			int index = searchItemInInventory(item.name);
 			
@@ -566,16 +573,16 @@ public class Player extends Entity {
 				inventory.get(index).amount++;
 				canObtain = true;
 			}
-			else {
+			else { //New Item
 				if(inventory.size() != maxInventorySize) {
-					inventory.add(item);
+					inventory.add(newItem);
 					canObtain = true;
 				}
 			}
 		}
-		else {
+		else { //Not Stacable
 			if(inventory.size() != maxInventorySize) {
-				inventory.add(item);
+				inventory.add(newItem);
 				canObtain = true;
 			}
 		}
